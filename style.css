@@ -1,11 +1,7 @@
 /* ============================================================
    MATHMODEL — CSS PRINCIPAL
-   Site Educativo de Modelagem Matemática
    ============================================================ */
 
-/* ============================================================
-   RESET & VARIÁVEIS
-   ============================================================ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0b0f1a;
@@ -21,8 +17,11 @@
   --accent-green-dim:rgba(52,211,153,.12);
   --accent-green-glow:rgba(52,211,153,.25);
   --accent-orange:#fb923c;
+  --accent-orange-dim:rgba(251,146,60,.12);
+  --accent-orange-glow:rgba(251,146,60,.25);
   --accent-red:#f87171;
   --accent-purple:#a78bfa;
+  --accent-purple-dim:rgba(167,139,250,.12);
   --radius:14px;
   --radius-sm:8px;
   --font:'Inter',system-ui,-apple-system,sans-serif;
@@ -42,15 +41,10 @@ body{
 a{color:var(--accent-blue);text-decoration:none}
 img{max-width:100%;display:block}
 
-/* ============================================================
-   LAYOUT
-   ============================================================ */
 .container{width:90%;max-width:var(--max-w);margin:0 auto}
 section{padding:5rem 0}
 
-/* ============================================================
-   NAVEGAÇÃO FIXA
-   ============================================================ */
+/* NAVBAR */
 .navbar{
   position:sticky;top:0;z-index:1000;
   background:rgba(11,15,26,.82);
@@ -73,9 +67,7 @@ section{padding:5rem 0}
 .nav-links a:hover{color:var(--text);background:var(--surface2)}
 .menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
 
-/* ============================================================
-   HERO
-   ============================================================ */
+/* HERO */
 .hero{
   padding:6rem 0 4rem;text-align:center;
   background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(77,142,247,.08),transparent);
@@ -110,9 +102,7 @@ section{padding:5rem 0}
 }
 .hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 40px var(--accent-blue-glow)}
 
-/* ============================================================
-   SEÇÕES DE CONTEÚDO
-   ============================================================ */
+/* SECTIONS */
 .section-label{
   display:inline-flex;align-items:center;gap:.4rem;
   font-size:.75rem;font-weight:700;text-transform:uppercase;
@@ -120,6 +110,8 @@ section{padding:5rem 0}
 }
 .section-label.blue{color:var(--accent-blue)}
 .section-label.green{color:var(--accent-green)}
+.section-label.orange{color:var(--accent-orange)}
+.section-label.purple{color:var(--accent-purple)}
 .section-title{
   font-size:clamp(1.6rem,4vw,2.2rem);
   font-weight:800;letter-spacing:-.025em;
@@ -127,9 +119,7 @@ section{padding:5rem 0}
 }
 .section-desc{color:var(--text-muted);max-width:750px;margin-bottom:2.5rem;font-size:1.05rem}
 
-/* ============================================================
-   CARDS
-   ============================================================ */
+/* CARDS */
 .card{
   background:var(--surface);
   border:1px solid var(--border);
@@ -146,12 +136,12 @@ section{padding:5rem 0}
 }
 .card-icon.blue{background:var(--accent-blue-dim);color:var(--accent-blue)}
 .card-icon.green{background:var(--accent-green-dim);color:var(--accent-green)}
+.card-icon.orange{background:var(--accent-orange-dim);color:var(--accent-orange)}
 .card h3{font-size:1.15rem;font-weight:700;margin-bottom:.5rem}
 .card p{color:var(--text-muted);font-size:.95rem}
+.highlight-card{border-color:rgba(251,146,60,.3);background:linear-gradient(135deg,var(--surface),rgba(251,146,60,.05))}
 
-/* ============================================================
-   CAIXAS DE TEORIA / FÓRMULAS
-   ============================================================ */
+/* THEORY BOX */
 .theory-box{
   background:var(--surface);
   border:1px solid var(--border);
@@ -167,6 +157,7 @@ section{padding:5rem 0}
 }
 .theory-box.blue::before{background:var(--accent-blue)}
 .theory-box.green::before{background:var(--accent-green)}
+.theory-box.orange::before{background:var(--accent-orange)}
 .theory-box h3{font-size:1.2rem;font-weight:700;margin-bottom:.75rem}
 .formula{
   display:inline-block;
@@ -179,6 +170,7 @@ section{padding:5rem 0}
 }
 .formula.blue{background:var(--accent-blue-dim);color:var(--accent-blue);border:1px solid rgba(77,142,247,.2)}
 .formula.green{background:var(--accent-green-dim);color:var(--accent-green);border:1px solid rgba(52,211,153,.2)}
+.formula.orange{background:var(--accent-orange-dim);color:var(--accent-orange);border:1px solid rgba(251,146,60,.2)}
 .coeff{
   display:inline-block;padding:.15rem .55rem;border-radius:6px;
   font-family:var(--mono);font-weight:600;font-size:.9rem;
@@ -195,10 +187,9 @@ ul.feature-list li::before{
   content:'→';position:absolute;left:0;color:var(--accent-blue);font-weight:700;
 }
 .green-list li::before{color:var(--accent-green)}
+.orange-list li::before{color:var(--accent-orange)}
 
-/* ============================================================
-   SIMULADORES
-   ============================================================ */
+/* SIMULATORS */
 .simulator{
   background:var(--surface);
   border:1px solid var(--border);
@@ -214,6 +205,7 @@ ul.feature-list li::before{
 .sim-header .sim-dot{width:12px;height:12px;border-radius:50%}
 .sim-header .sim-dot.blue{background:var(--accent-blue)}
 .sim-header .sim-dot.green{background:var(--accent-green)}
+.sim-header .sim-dot.orange{background:var(--accent-orange)}
 .sim-header h3{font-size:1.1rem;font-weight:700}
 .sim-body{
   display:grid;grid-template-columns:1fr 1fr;gap:0;
@@ -240,18 +232,6 @@ ul.feature-list li::before{
   width:100%;accent-color:var(--accent-blue);
   cursor:pointer;
 }
-.input-group input[type="number"]{
-  width:100%;padding:.65rem .9rem;
-  background:var(--bg);border:1px solid var(--border);
-  border-radius:var(--radius-sm);
-  color:var(--text);font-family:var(--mono);font-size:.95rem;
-  transition:var(--transition);
-}
-.input-group input[type="number"]:focus{
-  outline:none;border-color:var(--accent-blue);
-  box-shadow:0 0 0 3px var(--accent-blue-glow);
-}
-.input-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 .range-val{
   float:right;font-family:var(--mono);font-weight:600;
   font-size:.85rem;color:var(--text);
@@ -264,11 +244,10 @@ ul.feature-list li::before{
 }
 .output-box.blue{background:var(--accent-blue-dim);border:1px solid rgba(77,142,247,.18)}
 .output-box.green{background:var(--accent-green-dim);border:1px solid rgba(52,211,153,.18)}
+.output-box.orange{background:var(--accent-orange-dim);border:1px solid rgba(251,146,60,.18)}
 .output-label{font-family:var(--font);font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:.25rem}
 
-/* ============================================================
-   SEÇÃO INTRO
-   ============================================================ */
+/* INTRO STEPS */
 .intro-visual{
   display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;
   margin-top:2rem;
@@ -288,17 +267,108 @@ ul.feature-list li::before{
 .intro-step p{font-size:.88rem;color:var(--text-muted)}
 
 /* ============================================================
-   SEPARADOR
+   NOVO: VERTEX HIGHLIGHT
    ============================================================ */
+.vertex-highlight{
+  display:flex;gap:1.5rem;align-items:flex-start;
+  background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(52,211,153,.02));
+  border:1px solid rgba(52,211,153,.25);
+  border-radius:var(--radius);
+  padding:1.75rem 2rem;
+  margin:2rem 0;
+}
+.vertex-icon{
+  font-size:2.2rem;flex-shrink:0;
+  width:60px;height:60px;border-radius:50%;
+  background:var(--accent-green-dim);
+  display:flex;align-items:center;justify-content:center;
+}
+.vertex-text h3{
+  font-size:1.15rem;font-weight:700;margin-bottom:.5rem;
+  color:var(--accent-green);
+}
+.vertex-text p{color:var(--text-muted);line-height:1.7}
+.vertex-text strong{color:var(--text)}
+
+/* ============================================================
+   NOVO: CONTEXT BOX (interpretação física)
+   ============================================================ */
+.context-box{
+  margin-top:1rem;padding:1rem 1.25rem;
+  background:rgba(52,211,153,.05);
+  border:1px dashed rgba(52,211,153,.3);
+  border-radius:var(--radius-sm);
+}
+.context-text{
+  color:var(--text);font-size:.92rem;line-height:1.6;
+  font-family:var(--font);
+}
+.context-text strong{color:var(--accent-green)}
+
+/* ============================================================
+   NOVO: TABS DO SIMULADOR
+   ============================================================ */
+.sim-tabs{
+  display:flex;gap:.5rem;margin-bottom:1.5rem;
+  border-bottom:1px solid var(--border);
+}
+.tab-btn{
+  background:none;border:none;color:var(--text-muted);
+  padding:.75rem 1rem;font-family:var(--font);
+  font-size:.85rem;font-weight:600;cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:var(--transition);
+  margin-bottom:-1px;
+}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{
+  color:var(--accent-orange);
+  border-bottom-color:var(--accent-orange);
+}
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* ============================================================
+   NOVO: RECURSOS EXTERNOS
+   ============================================================ */
+.resource-card{
+  display:flex;gap:1.25rem;align-items:flex-start;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.5rem;
+  transition:var(--transition);
+  text-decoration:none;
+  color:inherit;
+}
+.resource-card:hover{
+  border-color:var(--accent-purple);
+  transform:translateY(-3px);
+  box-shadow:0 10px 30px rgba(167,139,250,.15);
+}
+.resource-icon{
+  font-size:1.8rem;flex-shrink:0;
+  width:56px;height:56px;border-radius:12px;
+  background:var(--accent-purple-dim);
+  display:flex;align-items:center;justify-content:center;
+}
+.resource-content h3{font-size:1.05rem;font-weight:700;margin-bottom:.35rem}
+.resource-content p{color:var(--text-muted);font-size:.9rem;line-height:1.55;margin-bottom:.5rem}
+.resource-link{
+  color:var(--accent-purple);font-weight:600;font-size:.85rem;
+  display:inline-block;transition:var(--transition);
+}
+.resource-card:hover .resource-link{transform:translateX(4px)}
+
+/* DIVIDER */
 .divider{
   height:1px;
   background:linear-gradient(90deg,transparent,var(--border),transparent);
   margin:0;
 }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
+/* FOOTER */
 footer{
   text-align:center;padding:3rem 0;
   border-top:1px solid var(--border);
@@ -306,12 +376,11 @@ footer{
 }
 footer a{font-weight:600}
 
-/* ============================================================
-   RESPONSIVO
-   ============================================================ */
+/* RESPONSIVE */
 @media(max-width:900px){
   .sim-body{grid-template-columns:1fr}
   .sim-controls{border-right:none;border-bottom:1px solid var(--border)}
+  .vertex-highlight{flex-direction:column;text-align:center;align-items:center}
 }
 @media(max-width:700px){
   .nav-links{
@@ -325,35 +394,20 @@ footer a{font-weight:600}
   .nav-links a{padding:.75rem 1rem;border-radius:0}
   .menu-toggle{display:block}
   .intro-visual{grid-template-columns:1fr}
-  .input-row{grid-template-columns:1fr}
   section{padding:3.5rem 0}
   .card-grid{grid-template-columns:1fr}
+  .sim-tabs{flex-wrap:wrap}
+  .tab-btn{flex:1;min-width:140px;text-align:center}
 }
 
-/* ============================================================
-   ANIMAÇÕES
-   ============================================================ */
+/* ANIMATIONS */
 .fade-up{
   opacity:0;transform:translateY(30px);
   transition:opacity .6s ease,transform .6s ease;
 }
 .fade-up.visible{opacity:1;transform:translateY(0)}
 
-/* Scrollbar personalizada */
 ::-webkit-scrollbar{width:8px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:#3a4560}
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modelagem Matemática — Funções de 1º e 2º Graus</title>
-  <meta name="description" content="Site educativo interativo sobre modelagem matemática com funções afim e quadrática para o Ensino Médio.">
-
-  <!-- CSS EXTERNO -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Fontes (opcional) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-</head>
