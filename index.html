@@ -6,10 +6,8 @@
 <title>Modelagem Matemática — Funções de 1º e 2º Graus</title>
 <meta name="description" content="Site educativo interativo sobre modelagem matemática com funções afim e quadrática para o Ensino Médio.">
 
-<!-- CSS EXTERNO -->
 <link rel="stylesheet" href="style.css">
 
-<!-- Fontes (opcional) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 </head>
@@ -25,9 +23,12 @@
     <div class="nav-links">
       <a href="#intro">Introdução</a>
       <a href="#funcao1">1º Grau</a>
-      <a href="#sim1">Simulador 1</a>
+      <a href="#sim1">Sim. Custo</a>
+      <a href="#cinematica">Cinemática</a>
+      <a href="#simLuz">Conta de Luz</a>
       <a href="#funcao2">2º Grau</a>
-      <a href="#sim2">Simulador 2</a>
+      <a href="#sim2">Trajetória</a>
+      <a href="#recursos">Recursos</a>
     </div>
   </div>
 </nav>
@@ -92,7 +93,7 @@
         <p>A trajetória de uma bola chutada a gol é uma parábola perfeita. A Física usa funções para prever movimentos.</p>
       </div>
       <div class="card">
-        <div class="card-icon blue">📈</div>
+        <div class="card-icon orange">📈</div>
         <h3>Negócios & Otimização</h3>
         <p>Qual o preço ideal para maximizar o lucro? O vértice da parábola tem a resposta.</p>
       </div>
@@ -140,17 +141,17 @@
         <p style="margin-top:.5rem">Cada venda adiciona a mesma quantia ao salário — variação constante!</p>
       </div>
       <div class="card">
-        <h3>🚀 MRU (Física)</h3>
-        <p>No Movimento Retilíneo Uniforme, a posição varia linearmente com o tempo:</p>
-        <div class="formula blue" style="font-size:.95rem">S(t) = v · t + S₀</div>
-        <p style="margin-top:.5rem">A velocidade <em>v</em> é o coeficiente angular e <em>S₀</em> é a posição inicial.</p>
+        <h3>💡 Conta de Luz</h3>
+        <p>A concessionária cobra taxa fixa + valor por kWh consumido:</p>
+        <div class="formula blue" style="font-size:.95rem">C(x) = 0,80x + 25</div>
+        <p style="margin-top:.5rem">Veja o simulador completo mais abaixo nesta página!</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- =========================================================
-     SIMULADOR 1º GRAU
+     SIMULADOR 1º GRAU — CUSTO DE PRODUÇÃO
      ========================================================= -->
 <section id="sim1" style="padding-top:0">
   <div class="container">
@@ -192,6 +193,123 @@
 <div class="divider"></div>
 
 <!-- =========================================================
+     NOVO: CINEMÁTICA — FÍSICA INTEGRADA
+     ========================================================= -->
+<section id="cinematica">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-label orange">🚗 Capítulo 1.5 — Física</span>
+      <h2 class="section-title">Cinemática: A Matemática do Movimento</h2>
+      <p class="section-desc">
+        Na Física, as funções de 1º grau descrevem o <strong>Movimento Retilíneo Uniforme (MRU)</strong> — aquele em que um corpo se desloca com velocidade constante. E tem um detalhe lindo: <strong>a área sob o gráfico da velocidade é exatamente o deslocamento do corpo</strong>.
+      </p>
+    </div>
+
+    <div class="theory-box orange fade-up">
+      <h3>📐 MRU — Movimento Retilíneo Uniforme</h3>
+      <p>Quando a velocidade é constante, a posição varia linearmente com o tempo:</p>
+      <div class="formula orange">S(t) = v · t + S₀</div>
+      <ul class="feature-list orange-list" style="margin-top:1rem">
+        <li><span class="coeff a">v</span> → <strong>Velocidade</strong> (coeficiente angular): quanto o corpo se desloca por segundo.</li>
+        <li><span class="coeff b">S₀</span> → <strong>Posição inicial</strong> (coeficiente linear): onde o corpo estava em t = 0.</li>
+      </ul>
+    </div>
+
+    <div class="card-grid fade-up">
+      <div class="card highlight-card">
+        <div class="card-icon orange">📏</div>
+        <h3>Área = Deslocamento</h3>
+        <p>No gráfico <strong>v(t)</strong>, a área sob a reta (um retângulo!) é exatamente o deslocamento:</p>
+        <div class="formula orange" style="font-size:.95rem;margin-top:.75rem">Δs = v · Δt</div>
+        <p style="margin-top:.75rem">É a mesma fórmula do MRU — a matemática se encaixa perfeitamente!</p>
+      </div>
+      <div class="card">
+        <div class="card-icon orange">🚶</div>
+        <h3>Exemplo Prático</h3>
+        <p>Um carro a <strong>80 km/h</strong> por <strong>2 horas</strong> percorre:</p>
+        <div class="formula orange" style="font-size:.95rem;margin-top:.75rem">Δs = 80 · 2 = 160 km</div>
+        <p style="margin-top:.75rem">A área do retângulo no gráfico v(t) é 80 × 2 = 160.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon orange">🔬</div>
+        <h3>E no MRUV?</h3>
+        <p>Quando a velocidade <em>muda</em> (aceleração constante), o gráfico v(t) ainda é uma reta — mas a área vira um <strong>trapézio</strong>, e a posição segue uma <strong>função de 2º grau</strong>!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     NOVO: SIMULADOR DE CONTA DE LUZ
+     ========================================================= -->
+<section id="simLuz" style="padding-top:0">
+  <div class="container">
+    <div class="simulator fade-up">
+      <div class="sim-header">
+        <span class="sim-dot orange"></span>
+        <h3>Simulador — Conta de Luz (1º Grau + Cinemática)</h3>
+      </div>
+      <div class="sim-body">
+        <div class="sim-controls">
+          <div class="sim-tabs">
+            <button class="tab-btn active" data-tab="luz">💡 Conta de Luz</button>
+            <button class="tab-btn" data-tab="mru">🚗 MRU (Cinemática)</button>
+          </div>
+
+          <!-- Aba CONTA DE LUZ -->
+          <div class="tab-content active" id="tab-luz">
+            <div class="input-group">
+              <label>Tarifa por kWh — <span class="coeff a">a</span> (R$) <span class="range-val" id="valTarifa">0.80</span></label>
+              <input type="range" id="inputTarifa" min="0.3" max="1.5" step="0.05" value="0.80">
+            </div>
+            <div class="input-group">
+              <label>Custo Fixo — <span class="coeff b">b</span> (R$) <span class="range-val" id="valFixo">25</span></label>
+              <input type="range" id="inputFixo" min="0" max="100" step="5" value="25">
+            </div>
+            <div class="input-group">
+              <label>Consumo — x (kWh) <span class="range-val" id="valConsumo">200</span></label>
+              <input type="range" id="inputConsumo" min="0" max="1000" step="10" value="200">
+            </div>
+            <div class="output-box orange">
+              <div class="output-label">Resultado</div>
+              <div>
+                <strong>Fórmula:</strong> C(x) = <span id="fTarifa">0.80</span>x + <span id="fFixo">25</span><br>
+                <strong>Conta Total:</strong> C(<span id="fConsumo">200</span>) = R$ <span id="resultLuz" style="font-size:1.15rem;color:var(--accent-orange)">185,00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Aba MRU -->
+          <div class="tab-content" id="tab-mru">
+            <div class="input-group">
+              <label>Velocidade — <span class="coeff a">v</span> (km/h) <span class="range-val" id="valVel">80</span></label>
+              <input type="range" id="inputVel" min="10" max="200" step="5" value="80">
+            </div>
+            <div class="input-group">
+              <label>Tempo — t (h) <span class="range-val" id="valTempo">2</span></label>
+              <input type="range" id="inputTempo" min="0.5" max="10" step="0.5" value="2">
+            </div>
+            <div class="output-box orange">
+              <div class="output-label">Resultado</div>
+              <div>
+                <strong>Posição:</strong> S(t) = <span id="fVel">80</span> · t + <span id="fS0">0</span><br>
+                <strong>Δs = v · t =</strong> <span id="resultMRU" style="font-size:1.15rem;color:var(--accent-orange)">160,00 km</span><br>
+                <small style="color:var(--text-muted)">= área do retângulo no gráfico v(t)</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sim-canvas-wrap">
+          <canvas id="canvasLuz" width="480" height="360"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- =========================================================
      FUNÇÃO DE 2º GRAU
      ========================================================= -->
 <section id="funcao2">
@@ -200,7 +318,7 @@
       <span class="section-label green">📗 Capítulo 2</span>
       <h2 class="section-title">Função de 2º Grau (Função Quadrática)</h2>
       <p class="section-desc">
-        Quando a variação <em>não</em> é constante — ela acelera ou desacelera — precisamos de uma função mais poderosa. A função quadrática descreve curvas, trajetórias e pontos de máximo ou mínimo que governam o mundo ao nosso redor.
+        Quando a variação <em>não</em> é constante — ela acelera ou desacelera — precisamos de uma função mais poderosa. A função quadrática descreve curvas, trajetórias e <strong>pontos de máximo ou mínimo</strong> que governam o mundo ao nosso redor.
       </p>
     </div>
 
@@ -214,31 +332,49 @@
         <li><span class="coeff b">b</span> → Influencia a posição horizontal do vértice e a inclinação da curva na origem.</li>
         <li><span class="coeff c">c</span> → <strong>Termo independente</strong>: é o valor de <em>f(0)</em>, onde a parábola cruza o eixo vertical.</li>
       </ul>
-      <p style="margin-top:1.25rem"><strong>Vértice da parábola:</strong></p>
+      <p style="margin-top:1.25rem"><strong>Vértice da parábola — o ponto-chave:</strong></p>
       <div class="formula green" style="font-size:.95rem">x<sub>v</sub> = −b / (2a) &nbsp;&nbsp;|&nbsp;&nbsp; y<sub>v</sub> = f(x<sub>v</sub>)</div>
       <p style="margin-top:.75rem"><strong>Raízes (zeros da função):</strong></p>
       <div class="formula green" style="font-size:.95rem">x = (−b ± √Δ) / (2a) &nbsp;&nbsp; onde &nbsp; Δ = b² − 4ac</div>
+    </div>
+
+    <!-- NOVO: DESTAQUE DO VÉRTICE -->
+    <div class="vertex-highlight fade-up">
+      <div class="vertex-icon">🎯</div>
+      <div class="vertex-text">
+        <h3>Por que o vértice é tão importante?</h3>
+        <p>
+          O vértice é o <strong>ponto de ótimo</strong> da parábola. Em problemas reais, ele responde perguntas cruciais:
+          <strong>qual a altura máxima do projétil?</strong> <strong>Qual o lucro máximo possível?</strong>
+          <strong>Qual o custo mínimo de produção?</strong> As raízes, por sua vez, indicam
+          <strong>quando o fenômeno começa e termina</strong> — quando a bola sai e toca o chão,
+          quando a empresa começa e deixa de ter lucro.
+        </p>
+      </div>
     </div>
 
     <div class="card-grid fade-up">
       <div class="card">
         <h3>⚽ Trajetória de Projéteis</h3>
         <p>Quando você chuta uma bola a gol, ela sobe, atinge uma altura máxima e depois desce. Essa curva é uma <strong>parábola</strong> — descrita perfeitamente por uma função quadrática!</p>
+        <p style="margin-top:.5rem;font-size:.85rem;color:var(--accent-green)">🎯 <strong>Vértice</strong> = altura máxima</p>
       </div>
       <div class="card">
         <h3>🏗️ Otimização de Áreas</h3>
         <p>Com 40 metros de cerca, qual o maior retângulo que você pode cercar? A resposta vem do <strong>vértice</strong> da parábola que modela a área em função de um dos lados.</p>
+        <p style="margin-top:.5rem;font-size:.85rem;color:var(--accent-green)">🎯 <strong>Vértice</strong> = área máxima</p>
       </div>
       <div class="card">
         <h3>💹 Lucro Máximo / Custo Mínimo</h3>
         <p>Empresas modelam lucro e custo com funções quadráticas. O vértice da parábola indica exatamente a quantidade que <strong>maximiza o lucro</strong> ou <strong>minimiza o custo</strong>.</p>
+        <p style="margin-top:.5rem;font-size:.85rem;color:var(--accent-green)">🎯 <strong>Vértice</strong> = lucro máximo</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- =========================================================
-     SIMULADOR 2º GRAU
+     SIMULADOR 2º GRAU — MELHORADO
      ========================================================= -->
 <section id="sim2" style="padding-top:0">
   <div class="container">
@@ -271,11 +407,88 @@
               <strong>Raízes:</strong> <span id="raizes">x₁ = 0.00 &nbsp;|&nbsp; x₂ = 8.00</span>
             </div>
           </div>
+
+          <!-- NOVO: INTERPRETAÇÃO CONTEXTUAL -->
+          <div class="context-box">
+            <div class="output-label">🎯 Interpretação Física</div>
+            <div id="contextoFisico" class="context-text">
+              Uma bola chutada do chão atinge <strong>16.00 m</strong> de altura máxima
+              após <strong>4.00 s</strong>, e toca o solo novamente em <strong>8.00 s</strong>.
+            </div>
+          </div>
         </div>
         <div class="sim-canvas-wrap">
           <canvas id="canvas2" width="480" height="360"></canvas>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- =========================================================
+     NOVO: RECURSOS EXTERNOS
+     ========================================================= -->
+<section id="recursos">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-label purple">🔗 Capítulo 3</span>
+      <h2 class="section-title">Continue Explorando</h2>
+      <p class="section-desc">
+        A experimentação é a melhor forma de aprender matemática. Estas ferramentas interativas permitem que você <strong>teste hipóteses, visualize conceitos e construa seu próprio conhecimento</strong>.
+      </p>
+    </div>
+
+    <div class="card-grid fade-up">
+      <a href="https://www.geogebra.org/m/funcões" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-icon">📐</div>
+        <div class="resource-content">
+          <h3>GeoGebra</h3>
+          <p>Applets interativos para explorar funções, gráficos e construções geométricas em tempo real. Ideal para testar hipóteses.</p>
+          <span class="resource-link">Acessar GeoGebra →</span>
+        </div>
+      </a>
+      <a href="https://scratch.mit.edu/" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-icon">🐱</div>
+        <div class="resource-content">
+          <h3>Scratch (MIT)</h3>
+          <p>Plataforma de programação visual onde você pode criar simulações matemáticas, jogos e animações — aprendendo lógica e funções na prática.</p>
+          <span class="resource-link">Acessar Scratch →</span>
+        </div>
+      </a>
+      <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-icon">📊</div>
+        <div class="resource-content">
+          <h3>Desmos</h3>
+          <p>Calculadora gráfica online gratuita. Digite qualquer função e veja o gráfico instantaneamente — perfeito para comparar funções de 1º e 2º grau.</p>
+          <span class="resource-link">Acessar Desmos →</span>
+        </div>
+      </a>
+      <a href="https://phet.colorado.edu/pt_BR/simulations/filter?subjects=math&type=html" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-icon">🔬</div>
+        <div class="resource-content">
+          <h3>PhET (Colorado)</h3>
+          <p>Simulações interativas de Física e Matemática desenvolvidas pela Universidade do Colorado. Excelente para conectar matemática com fenômenos reais.</p>
+          <span class="resource-link">Acessar PhET →</span>
+        </div>
+      </a>
+      <a href="https://www.khanacademy.org/math" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-icon">🎓</div>
+        <div class="resource-content">
+          <h3>Khan Academy</h3>
+          <p>Vídeos e exercícios gratuitos sobre funções, cinemática e muito mais. Aprenda no seu ritmo com explicações passo a passo.</p>
+          <span class="resource-link">Acessar Khan Academy →</span>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/@ManualdoMundo" target="_blank" rel="noopener" class="resource-card">
+        <div class="resource-icon">🎬</div>
+        <div class="resource-content">
+          <h3>Manual do Mundo</h3>
+          <p>Canal brasileiro que mostra a matemática e a física por trás de experimentos do dia a dia. Diversão + aprendizado garantidos!</p>
+          <span class="resource-link">Acessar canal →</span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -287,289 +500,11 @@
   <div class="container">
     <p>
       Feito com 💙 para alunos do Ensino Médio — <strong>MathModel</strong><br>
-      <span style="font-size:.8rem">A matemática não é um conjunto de regras arbitrárias. É a linguagem com que o universo foi escrito. — Galileu</span>
+      <span style="font-size:.8rem">"A matemática não é um conjunto de regras arbitrárias. É a linguagem com que o universo foi escrito." — Galileu</span>
     </p>
   </div>
 </footer>
 
-<!-- =========================================================
-     JAVASCRIPT
-     ========================================================= -->
-<script>
-/* ==========================================================
-   UTILIDADES
-   ========================================================== */
-function fmt(n,d=2){return Number(n).toFixed(d)}
-function fmtBR(n){return Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
-
-/* Scroll reveal */
-const obs=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
-},{threshold:0.12});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-
-/* ==========================================================
-   SIMULADOR 1º GRAU
-   ========================================================== */
-const iA1=document.getElementById('inputA1');
-const iB1=document.getElementById('inputB1');
-const iX1=document.getElementById('inputX1');
-const canvas1=document.getElementById('canvas1');
-const ctx1=canvas1.getContext('2d');
-
-function updateSim1(){
-  const a=+iA1.value, b=+iB1.value, x=+iX1.value;
-  document.getElementById('valA1').textContent=a;
-  document.getElementById('valB1').textContent=b;
-  document.getElementById('valX1').textContent=x;
-  document.getElementById('fA1').textContent=a;
-  document.getElementById('fB1').textContent=b;
-  document.getElementById('fX1').textContent=x;
-  const total=a*x+b;
-  document.getElementById('resultCost1').textContent=fmtBR(total);
-  drawGraph1(a,b,x);
-}
-[iA1,iB1,iX1].forEach(el=>el.addEventListener('input',updateSim1));
-
-function drawGraph1(a,b,px){
-  const W=canvas1.width, H=canvas1.height;
-  const dpr=window.devicePixelRatio||1;
-  canvas1.width=W*dpr; canvas1.height=H*dpr;
-  canvas1.style.width=W+'px'; canvas1.style.height=H+'px';
-  const ctx=ctx1;
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-
-  ctx.clearRect(0,0,W,H);
-
-  const xMax=Math.max(px*1.5,10);
-  const yMax=a*xMax+b;
-  const yMin=b;
-  const padL=55,padR=20,padT=25,padB=40;
-  const gw=W-padL-padR, gh=H-padT-padB;
-
-  function toCanvas(x,y){
-    return [padL+(x/xMax)*gw, padT+gh-((y-yMin)/(yMax-yMin||1))*gh];
-  }
-
-  ctx.strokeStyle='#1e2740';ctx.lineWidth=1;
-  for(let i=0;i<=5;i++){
-    const yy=padT+gh*i/5;
-    ctx.beginPath();ctx.moveTo(padL,yy);ctx.lineTo(W-padR,yy);ctx.stroke();
-    const val=yMax-(yMax-yMin)*i/5;
-    ctx.fillStyle='#5a6480';ctx.font='11px Inter,sans-serif';ctx.textAlign='right';
-    ctx.fillText(fmt(val,0),padL-8,yy+4);
-  }
-  for(let i=0;i<=5;i++){
-    const xx=padL+gw*i/5;
-    ctx.beginPath();ctx.moveTo(xx,padT);ctx.lineTo(xx,padT+gh);ctx.stroke();
-    const val=xMax*i/5;
-    ctx.fillStyle='#5a6480';ctx.textAlign='center';
-    ctx.fillText(fmt(val,0),xx,H-padB+18);
-  }
-
-  ctx.fillStyle='#8892a8';ctx.font='bold 11px Inter,sans-serif';
-  ctx.textAlign='center';
-  ctx.fillText('Quantidade (x)',padL+gw/2,H-5);
-  ctx.save();ctx.translate(14,padT+gh/2);ctx.rotate(-Math.PI/2);
-  ctx.fillText('Custo (R$)',0,0);ctx.restore();
-
-  ctx.beginPath();
-  const [x0,y0]=toCanvas(0,b);
-  ctx.moveTo(x0,y0);
-  const [x1,y1]=toCanvas(xMax,a*xMax+b);
-  ctx.lineTo(x1,y1);
-  ctx.strokeStyle='#4d8ef7';ctx.lineWidth=3;ctx.lineCap='round';ctx.stroke();
-
-  ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1,y1);
-  ctx.strokeStyle='rgba(77,142,247,.15)';ctx.lineWidth=12;ctx.stroke();
-
-  const [ppx,ppy]=toCanvas(px,a*px+b);
-  ctx.beginPath();ctx.arc(ppx,ppy,7,0,Math.PI*2);
-  ctx.fillStyle='#4d8ef7';ctx.fill();
-  ctx.beginPath();ctx.arc(ppx,ppy,12,0,Math.PI*2);
-  ctx.fillStyle='rgba(77,142,247,.2)';ctx.fill();
-
-  ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(77,142,247,.35)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(ppx,ppy);ctx.lineTo(ppx,padT+gh);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(ppx,ppy);ctx.lineTo(padL,ppy);ctx.stroke();
-  ctx.setLineDash([]);
-
-  ctx.fillStyle='#e4e8f1';ctx.font='bold 12px JetBrains Mono,monospace';ctx.textAlign='left';
-  ctx.fillText(`(${px}, ${fmtBR(a*px+b)})`,ppx+14,ppy-10);
-}
-updateSim1();
-
-/* ==========================================================
-   SIMULADOR 2º GRAU
-   ========================================================== */
-const iA2=document.getElementById('inputA2');
-const iB2=document.getElementById('inputB2');
-const iC2=document.getElementById('inputC2');
-const canvas2=document.getElementById('canvas2');
-const ctx2=canvas2.getContext('2d');
-
-function updateSim2(){
-  let a=+iA2.value, b=+iB2.value, c=+iC2.value;
-  if(a===0){a=0.1;iA2.value=0.1;}
-  document.getElementById('valA2').textContent=fmt(a,1);
-  document.getElementById('valB2').textContent=fmt(b,1);
-  document.getElementById('valC2').textContent=fmt(c,1);
-  document.getElementById('fA2').textContent=fmt(a,1);
-  document.getElementById('fB2').textContent=fmt(b,1);
-  document.getElementById('fC2').textContent=fmt(c,1);
-
-  const xv=-b/(2*a);
-  const yv=a*xv*xv+b*xv+c;
-  const delta=b*b-4*a*c;
-
-  document.getElementById('vx').textContent=fmt(xv);
-  document.getElementById('vy').textContent=fmt(yv);
-  document.getElementById('delta').textContent=fmt(delta);
-
-  if(a<0) document.getElementById('concavidade').innerHTML='Para baixo (∩) — <strong>Máximo</strong>';
-  else document.getElementById('concavidade').innerHTML='Para cima (∪) — <strong>Mínimo</strong>';
-
-  let rText='';
-  if(delta>0){
-    const r1=(-b-Math.sqrt(delta))/(2*a);
-    const r2=(-b+Math.sqrt(delta))/(2*a);
-    rText=`x₁ = ${fmt(Math.min(r1,r2))}  |  x₂ = ${fmt(Math.max(r1,r2))}`;
-  }else if(delta===0){
-    rText=`x = ${fmt(xv)} (raiz dupla)`;
-  }else{
-    rText='Não possui raízes reais (Δ < 0)';
-  }
-  document.getElementById('raizes').textContent=rText;
-  drawGraph2(a,b,c,xv,yv,delta);
-}
-[iA2,iB2,iC2].forEach(el=>el.addEventListener('input',updateSim2));
-
-function drawGraph2(a,b,c,xv,yv,delta){
-  const W=480,H=360;
-  const dpr=window.devicePixelRatio||1;
-  canvas2.width=W*dpr;canvas2.height=H*dpr;
-  canvas2.style.width=W+'px';canvas2.style.height=H+'px';
-  const ctx=ctx2;
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.clearRect(0,0,W,H);
-
-  let roots=[];
-  if(delta>=0){
-    roots.push((-b-Math.sqrt(delta))/(2*a));
-    roots.push((-b+Math.sqrt(delta))/(2*a));
-  }
-  let xPoints=[xv,0,...roots];
-  let xMinV=Math.min(...xPoints)-3;
-  let xMaxV=Math.max(...xPoints)+3;
-  if(xMaxV-xMinV<6){const mid=(xMaxV+xMinV)/2;xMinV=mid-3;xMaxV=mid+3;}
-
-  let yVals=[];
-  for(let i=0;i<=200;i++){
-    const xx=xMinV+(xMaxV-xMinV)*i/200;
-    yVals.push(a*xx*xx+b*xx+c);
-  }
-  let yMinV=Math.min(...yVals,0);
-  let yMaxV=Math.max(...yVals,0);
-  const yPad=(yMaxV-yMinV)*0.15||5;
-  yMinV-=yPad;yMaxV+=yPad;
-
-  const padL=50,padR=15,padT=20,padB=35;
-  const gw=W-padL-padR, gh=H-padT-padB;
-
-  function toC(x,y){
-    return [padL+((x-xMinV)/(xMaxV-xMinV))*gw, padT+gh-((y-yMinV)/(yMaxV-yMinV))*gh];
-  }
-
-  ctx.strokeStyle='#1e2740';ctx.lineWidth=1;
-  for(let i=0;i<=5;i++){
-    const yy=padT+gh*i/5;
-    ctx.beginPath();ctx.moveTo(padL,yy);ctx.lineTo(W-padR,yy);ctx.stroke();
-    const val=yMaxV-(yMaxV-yMinV)*i/5;
-    ctx.fillStyle='#5a6480';ctx.font='10px Inter,sans-serif';ctx.textAlign='right';
-    ctx.fillText(fmt(val,1),padL-6,yy+3);
-  }
-  for(let i=0;i<=5;i++){
-    const xx=padL+gw*i/5;
-    ctx.beginPath();ctx.moveTo(xx,padT);ctx.lineTo(xx,padT+gh);ctx.stroke();
-    const val=xMinV+(xMaxV-xMinV)*i/5;
-    ctx.fillStyle='#5a6480';ctx.textAlign='center';
-    ctx.fillText(fmt(val,1),xx,H-padB+15);
-  }
-
-  const [zx,zy]=toC(0,0);
-  if(zy>=padT&&zy<=padT+gh){
-    ctx.strokeStyle='#2a3555';ctx.lineWidth=1.5;
-    ctx.beginPath();ctx.moveTo(padL,zy);ctx.lineTo(W-padR,zy);ctx.stroke();
-  }
-  if(zx>=padL&&zx<=W-padR){
-    ctx.strokeStyle='#2a3555';ctx.lineWidth=1.5;
-    ctx.beginPath();ctx.moveTo(zx,padT);ctx.lineTo(zx,padT+gh);ctx.stroke();
-  }
-
-  ctx.beginPath();
-  for(let i=0;i<=300;i++){
-    const xx=xMinV+(xMaxV-xMinV)*i/300;
-    const yy=a*xx*xx+b*xx+c;
-    const [cx,cy]=toC(xx,yy);
-    if(i===0) ctx.moveTo(cx,cy); else ctx.lineTo(cx,cy);
-  }
-  ctx.strokeStyle='#34d399';ctx.lineWidth=3;ctx.lineCap='round';ctx.stroke();
-
-  ctx.beginPath();
-  for(let i=0;i<=300;i++){
-    const xx=xMinV+(xMaxV-xMinV)*i/300;
-    const yy=a*xx*xx+b*xx+c;
-    const [cx,cy]=toC(xx,yy);
-    if(i===0) ctx.moveTo(cx,cy); else ctx.lineTo(cx,cy);
-  }
-  ctx.strokeStyle='rgba(52,211,153,.12)';ctx.lineWidth=14;ctx.stroke();
-
-  const [vcx,vcy]=toC(xv,yv);
-  ctx.beginPath();ctx.arc(vcx,vcy,7,0,Math.PI*2);
-  ctx.fillStyle='#34d399';ctx.fill();
-  ctx.beginPath();ctx.arc(vcx,vcy,13,0,Math.PI*2);
-  ctx.fillStyle='rgba(52,211,153,.18)';ctx.fill();
-
-  ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(52,211,153,.3)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(vcx,vcy);ctx.lineTo(vcx,padT+gh);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(vcx,vcy);ctx.lineTo(padL,vcy);ctx.stroke();
-  ctx.setLineDash([]);
-
-  ctx.fillStyle='#e4e8f1';ctx.font='bold 11px JetBrains Mono,monospace';ctx.textAlign='left';
-  const vLabel=a<0?'Máx':'Mín';
-  ctx.fillText(`${vLabel} (${fmt(xv)}, ${fmt(yv)})`,vcx+14,vcy+(a<0?-12:18));
-
-  if(delta>=0){
-    roots.forEach(r=>{
-      const [rx,ry]=toC(r,0);
-      ctx.beginPath();ctx.arc(rx,ry,5,0,Math.PI*2);
-      ctx.fillStyle='#fb923c';ctx.fill();
-      ctx.beginPath();ctx.arc(rx,ry,9,0,Math.PI*2);
-      ctx.fillStyle='rgba(251,146,60,.15)';ctx.fill();
-    });
-  }
-
-  ctx.fillStyle='#8892a8';ctx.font='bold 10px Inter,sans-serif';
-  ctx.textAlign='center';
-  ctx.fillText('x',W-padR+8,zy>=padT&&zy<=padT+gh?zy+3:padT+gh+14);
-  ctx.fillText('y',zx>=padL&&zx<=W-padR?zx:padL,padT-6);
-}
-updateSim2();
-
-window.addEventListener('resize',()=>{updateSim1();updateSim2()});
-</script>
-     <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modelagem Matemática — Funções de 1º e 2º Graus</title>
-  <meta name="description" content="Site educativo interativo sobre modelagem matemática com funções afim e quadrática para o Ensino Médio.">
-
-  <!-- CSS EXTERNO -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Fontes (opcional) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-</head>
+<script src="script.js"></script>
 </body>
 </html>
