@@ -344,3 +344,16 @@ footer a{font-weight:600}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:#3a4560}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelagem Matemática — Funções de 1º e 2º Graus</title>
+  <meta name="description" content="Site educativo interativo sobre modelagem matemática com funções afim e quadrática para o Ensino Médio.">
+
+  <!-- CSS EXTERNO -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Fontes (opcional) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+</head>
