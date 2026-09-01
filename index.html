@@ -1,888 +1,919 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modelagem Matemática — Funções de 1º e 2º Graus</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelagem Matemática — Funções de 1º e 2º Graus</title>
+<meta name="description" content="Site educativo interativo sobre modelagem matemática com funções afim e quadrática para o Ensino Médio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & VARIÁVEIS
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f1a;
+  --surface:#131825;
+  --surface2:#1a2035;
+  --border:#252d44;
+  --text:#e4e8f1;
+  --text-muted:#8892a8;
+  --accent-blue:#4d8ef7;
+  --accent-blue-dim:rgba(77,142,247,.12);
+  --accent-blue-glow:rgba(77,142,247,.25);
+  --accent-green:#34d399;
+  --accent-green-dim:rgba(52,211,153,.12);
+  --accent-green-glow:rgba(52,211,153,.25);
+  --accent-orange:#fb923c;
+  --accent-red:#f87171;
+  --accent-purple:#a78bfa;
+  --radius:14px;
+  --radius-sm:8px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --max-w:1100px;
+  --transition:0.3s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.75;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent-blue);text-decoration:none}
+img{max-width:100%;display:block}
 
-  <!-- MathJax para renderizar LaTeX -->
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container{width:90%;max-width:var(--max-w);margin:0 auto}
+section{padding:5rem 0}
 
-  <style>
-    /* ===== RESET & BASE ===== */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* ============================================================
+   NAVEGAÇÃO FIXA
+   ============================================================ */
+.navbar{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(11,15,26,.82);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.navbar .container{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 0;
+}
+.nav-logo{font-weight:800;font-size:1.15rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem}
+.nav-logo .dot{width:10px;height:10px;border-radius:50%;background:var(--accent-blue)}
+.nav-links{display:flex;gap:.25rem;flex-wrap:wrap}
+.nav-links a{
+  padding:.45rem .9rem;border-radius:var(--radius-sm);
+  font-size:.85rem;font-weight:500;color:var(--text-muted);
+  transition:var(--transition);
+}
+.nav-links a:hover{color:var(--text);background:var(--surface2)}
+.menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
 
-    :root {
-      --blue: #2563eb;
-      --blue-light: #dbeafe;
-      --blue-dark: #1e40af;
-      --green: #16a34a;
-      --green-light: #dcfce7;
-      --green-dark: #15803d;
-      --orange: #ea580c;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #1e293b;
-      --text-light: #64748b;
-      --radius: 16px;
-      --shadow: 0 4px 24px rgba(0,0,0,.07);
-      --shadow-lg: 0 8px 40px rgba(0,0,0,.10);
-    }
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  padding:6rem 0 4rem;text-align:center;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(77,142,247,.08),transparent);
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.4rem 1rem;border-radius:999px;
+  font-size:.78rem;font-weight:600;
+  background:var(--accent-blue-dim);color:var(--accent-blue);
+  border:1px solid rgba(77,142,247,.2);
+  margin-bottom:1.5rem;
+}
+.hero h1{
+  font-size:clamp(2rem,5.5vw,3.4rem);
+  font-weight:900;letter-spacing:-.03em;
+  line-height:1.15;margin-bottom:1.25rem;
+}
+.hero h1 .highlight-blue{color:var(--accent-blue)}
+.hero h1 .highlight-green{color:var(--accent-green)}
+.hero p{
+  font-size:clamp(1rem,2vw,1.2rem);
+  color:var(--text-muted);max-width:680px;margin:0 auto 2.5rem;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.85rem 2rem;border-radius:var(--radius);
+  font-weight:700;font-size:1rem;
+  background:var(--accent-blue);color:#fff;
+  border:none;cursor:pointer;
+  transition:var(--transition);
+  box-shadow:0 0 30px var(--accent-blue-glow);
+}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 40px var(--accent-blue-glow)}
 
-    html { scroll-behavior: smooth; }
+/* ============================================================
+   SEÇÕES DE CONTEÚDO
+   ============================================================ */
+.section-label{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.75rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:.75rem;
+}
+.section-label.blue{color:var(--accent-blue)}
+.section-label.green{color:var(--accent-green)}
+.section-title{
+  font-size:clamp(1.6rem,4vw,2.2rem);
+  font-weight:800;letter-spacing:-.025em;
+  margin-bottom:1rem;line-height:1.2;
+}
+.section-desc{color:var(--text-muted);max-width:750px;margin-bottom:2.5rem;font-size:1.05rem}
 
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      font-size: 17px;
-    }
+/* ============================================================
+   CARDS
+   ============================================================ */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:2rem;
+  transition:var(--transition);
+}
+.card:hover{border-color:rgba(255,255,255,.1)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
+.card-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;margin-bottom:1rem;
+}
+.card-icon.blue{background:var(--accent-blue-dim);color:var(--accent-blue)}
+.card-icon.green{background:var(--accent-green-dim);color:var(--accent-green)}
+.card h3{font-size:1.15rem;font-weight:700;margin-bottom:.5rem}
+.card p{color:var(--text-muted);font-size:.95rem}
 
-    /* ===== NAVBAR ===== */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(255,255,255,.85);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(0,0,0,.06);
-      padding: 0 24px;
-      transition: box-shadow .3s;
-    }
-    nav.scrolled { box-shadow: var(--shadow); }
-    .nav-inner {
-      max-width: 1200px; margin: auto;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px;
-    }
-    .nav-logo {
-      font-weight: 800; font-size: 1.2rem;
-      background: linear-gradient(135deg, var(--blue), var(--green));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .nav-links { display: flex; gap: 8px; list-style: none; }
-    .nav-links a {
-      text-decoration: none; color: var(--text-light);
-      padding: 6px 14px; border-radius: 8px; font-size: .92rem;
-      font-weight: 500; transition: .2s;
-    }
-    .nav-links a:hover { background: var(--blue-light); color: var(--blue); }
-    .hamburger {
-      display: none; background: none; border: none; cursor: pointer;
-      flex-direction: column; gap: 5px; padding: 8px;
-    }
-    .hamburger span {
-      display: block; width: 24px; height: 2.5px;
-      background: var(--text); border-radius: 2px; transition: .3s;
-    }
+/* ============================================================
+   CAIXAS DE TEORIA / FÓRMULAS
+   ============================================================ */
+.theory-box{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:2rem 2.25rem;
+  margin-bottom:2rem;
+  position:relative;
+  overflow:hidden;
+}
+.theory-box::before{
+  content:'';position:absolute;top:0;left:0;
+  width:4px;height:100%;
+}
+.theory-box.blue::before{background:var(--accent-blue)}
+.theory-box.green::before{background:var(--accent-green)}
+.theory-box h3{font-size:1.2rem;font-weight:700;margin-bottom:.75rem}
+.formula{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:1.1rem;
+  padding:.6rem 1.2rem;
+  border-radius:var(--radius-sm);
+  margin:.75rem 0;
+  letter-spacing:.02em;
+}
+.formula.blue{background:var(--accent-blue-dim);color:var(--accent-blue);border:1px solid rgba(77,142,247,.2)}
+.formula.green{background:var(--accent-green-dim);color:var(--accent-green);border:1px solid rgba(52,211,153,.2)}
+.coeff{
+  display:inline-block;padding:.15rem .55rem;border-radius:6px;
+  font-family:var(--mono);font-weight:600;font-size:.9rem;
+}
+.coeff.a{background:rgba(251,146,60,.12);color:var(--accent-orange)}
+.coeff.b{background:rgba(167,139,250,.12);color:var(--accent-purple)}
+.coeff.c{background:rgba(248,113,113,.12);color:var(--accent-red)}
+ul.feature-list{list-style:none;padding:0}
+ul.feature-list li{
+  padding:.5rem 0;padding-left:1.5rem;position:relative;
+  color:var(--text-muted);
+}
+ul.feature-list li::before{
+  content:'→';position:absolute;left:0;color:var(--accent-blue);font-weight:700;
+}
+.green-list li::before{color:var(--accent-green)}
 
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 100px 24px 60px;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(37,99,235,.08) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 50%, rgba(22,163,74,.08) 0%, transparent 60%),
-        var(--bg);
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      font-weight: 900; line-height: 1.15; margin-bottom: 20px;
-    }
-    .hero h1 .blue { color: var(--blue); }
-    .hero h1 .green { color: var(--green); }
-    .hero p {
-      font-size: clamp(1rem, 2.2vw, 1.25rem);
-      color: var(--text-light); max-width: 680px; margin: 0 auto 36px;
-    }
-    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 28px; border-radius: 12px; font-weight: 700;
-      font-size: 1rem; text-decoration: none; transition: .25s;
-      border: none; cursor: pointer;
-    }
-    .btn-blue { background: var(--blue); color: #fff; }
-    .btn-blue:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,99,235,.35); }
-    .btn-green { background: var(--green); color: #fff; }
-    .btn-green:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(22,163,74,.35); }
-    .btn-outline {
-      background: transparent; color: var(--text);
-      border: 2px solid #cbd5e1;
-    }
-    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+/* ============================================================
+   SIMULADORES
+   ============================================================ */
+.simulator{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin-top:2rem;
+}
+.sim-header{
+  padding:1.5rem 2rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:.75rem;
+}
+.sim-header .sim-dot{width:12px;height:12px;border-radius:50%}
+.sim-header .sim-dot.blue{background:var(--accent-blue)}
+.sim-header .sim-dot.green{background:var(--accent-green)}
+.sim-header h3{font-size:1.1rem;font-weight:700}
+.sim-body{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+}
+.sim-controls{padding:2rem;border-right:1px solid var(--border)}
+.sim-canvas-wrap{
+  padding:1.5rem;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:var(--bg);
+  position:relative;
+}
+.sim-canvas-wrap canvas{
+  width:100%;max-width:480px;
+  border-radius:var(--radius-sm);
+  background:var(--bg);
+}
+.input-group{margin-bottom:1.25rem}
+.input-group label{
+  display:block;font-size:.82rem;font-weight:600;
+  color:var(--text-muted);margin-bottom:.4rem;
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.input-group input[type="range"]{
+  width:100%;accent-color:var(--accent-blue);
+  cursor:pointer;
+}
+.input-group input[type="number"]{
+  width:100%;padding:.65rem .9rem;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  color:var(--text);font-family:var(--mono);font-size:.95rem;
+  transition:var(--transition);
+}
+.input-group input[type="number"]:focus{
+  outline:none;border-color:var(--accent-blue);
+  box-shadow:0 0 0 3px var(--accent-blue-glow);
+}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.range-val{
+  float:right;font-family:var(--mono);font-weight:600;
+  font-size:.85rem;color:var(--text);
+}
+.output-box{
+  margin-top:1rem;padding:1rem 1.25rem;
+  border-radius:var(--radius-sm);
+  font-family:var(--mono);font-size:.95rem;
+  line-height:1.8;
+}
+.output-box.blue{background:var(--accent-blue-dim);border:1px solid rgba(77,142,247,.18)}
+.output-box.green{background:var(--accent-green-dim);border:1px solid rgba(52,211,153,.18)}
+.output-label{font-family:var(--font);font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:.25rem}
 
-    /* ===== SECTIONS ===== */
-    section { padding: 80px 24px; }
-    .container { max-width: 1100px; margin: auto; }
-    .section-badge {
-      display: inline-block; padding: 6px 16px; border-radius: 99px;
-      font-size: .82rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .06em; margin-bottom: 12px;
-    }
-    .badge-blue { background: var(--blue-light); color: var(--blue); }
-    .badge-green { background: var(--green-light); color: var(--green); }
-    .badge-orange { background: #fff7ed; color: var(--orange); }
-    .section-title {
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 800; margin-bottom: 16px;
-    }
-    .section-subtitle {
-      font-size: 1.08rem; color: var(--text-light);
-      max-width: 720px; margin-bottom: 40px;
-    }
+/* ============================================================
+   SEÇÃO INTRO
+   ============================================================ */
+.intro-visual{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;
+  margin-top:2rem;
+}
+.intro-step{
+  text-align:center;padding:1.5rem 1rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);
+}
+.intro-step .step-num{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto .75rem;font-weight:800;font-size:1rem;
+  background:var(--accent-blue-dim);color:var(--accent-blue);
+}
+.intro-step h4{font-size:1rem;margin-bottom:.35rem}
+.intro-step p{font-size:.88rem;color:var(--text-muted)}
 
-    /* ===== CARDS ===== */
-    .card {
-      background: var(--card); border-radius: var(--radius);
-      padding: 32px; box-shadow: var(--shadow);
-      border: 1px solid rgba(0,0,0,.04);
-    }
-    .card h3 { font-size: 1.25rem; margin-bottom: 10px; }
-    .card p, .card li { color: var(--text-light); }
-    .card ul { padding-left: 20px; }
-    .card li { margin-bottom: 6px; }
+/* ============================================================
+   SEPARADOR
+   ============================================================ */
+.divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:0;
+}
 
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{
+  text-align:center;padding:3rem 0;
+  border-top:1px solid var(--border);
+  color:var(--text-muted);font-size:.85rem;
+}
+footer a{font-weight:600}
 
-    /* ===== THEORY BOX ===== */
-    .formula-box {
-      background: linear-gradient(135deg, #f0f4ff, #e8f5e9);
-      border-radius: var(--radius); padding: 28px 32px;
-      text-align: center; font-size: 1.3rem; margin: 24px 0;
-      border: 2px dashed #cbd5e1;
-    }
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media(max-width:900px){
+  .sim-body{grid-template-columns:1fr}
+  .sim-controls{border-right:none;border-bottom:1px solid var(--border)}
+}
+@media(max-width:700px){
+  .nav-links{
+    display:none;flex-direction:column;
+    position:absolute;top:100%;left:0;right:0;
+    background:rgba(11,15,26,.97);
+    border-bottom:1px solid var(--border);
+    padding:1rem;gap:0;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:.75rem 1rem;border-radius:0}
+  .menu-toggle{display:block}
+  .intro-visual{grid-template-columns:1fr}
+  .input-row{grid-template-columns:1fr}
+  section{padding:3.5rem 0}
+  .card-grid{grid-template-columns:1fr}
+}
 
-    /* ===== EXAMPLE CARDS ===== */
-    .example-card {
-      border-left: 4px solid var(--blue);
-      padding-left: 20px; margin-bottom: 20px;
-    }
-    .example-card.green { border-left-color: var(--green); }
-    .example-card h4 { font-size: 1.05rem; margin-bottom: 4px; }
-    .example-card p { font-size: .97rem; color: var(--text-light); }
+/* ============================================================
+   ANIMAÇÕES
+   ============================================================ */
+.fade-up{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.fade-up.visible{opacity:1;transform:translateY(0)}
 
-    /* ===== SIMULATOR ===== */
-    .simulator {
-      background: var(--card); border-radius: var(--radius);
-      box-shadow: var(--shadow-lg); overflow: hidden;
-      border: 1px solid rgba(0,0,0,.05);
-    }
-    .sim-header {
-      padding: 24px 32px; color: #fff; font-weight: 700; font-size: 1.15rem;
-    }
-    .sim-header.blue-bg { background: linear-gradient(135deg, var(--blue), #3b82f6); }
-    .sim-header.green-bg { background: linear-gradient(135deg, var(--green-dark), var(--green)); }
-    .sim-body { padding: 28px 32px; }
-    .sim-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-      align-items: start;
-    }
-    .sim-controls label {
-      display: block; font-weight: 600; margin-bottom: 4px; font-size: .95rem;
-    }
-    .sim-controls .input-group { margin-bottom: 18px; }
-    .sim-controls input[type="range"] {
-      width: 100%; accent-color: var(--blue); cursor: pointer;
-    }
-    .sim-controls input[type="number"] {
-      width: 100%; padding: 10px 14px; border: 2px solid #e2e8f0;
-      border-radius: 10px; font-size: 1rem; transition: .2s;
-    }
-    .sim-controls input[type="number"]:focus {
-      outline: none; border-color: var(--blue);
-    }
-    .sim-result {
-      background: #f1f5f9; border-radius: 12px; padding: 18px;
-      font-size: 1.05rem; margin-top: 12px;
-    }
-    .sim-result strong { color: var(--blue); }
-    .sim-result.green strong { color: var(--green); }
-    .sim-canvas-wrap {
-      background: #fafbfc; border-radius: 12px;
-      border: 1px solid #e2e8f0; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .sim-canvas-wrap canvas {
-      width: 100%; height: auto; display: block;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      text-align: center; padding: 40px 24px;
-      color: var(--text-light); font-size: .92rem;
-      border-top: 1px solid #e2e8f0;
-    }
-    footer a { color: var(--blue); text-decoration: none; }
-
-    /* ===== SCROLL ANIMATIONS ===== */
-    .fade-up {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .nav-links { 
-        display: none; flex-direction: column;
-        position: absolute; top: 64px; left: 0; right: 0;
-        background: #fff; padding: 16px; gap: 4px;
-        box-shadow: var(--shadow);
-      }
-      .nav-links.open { display: flex; }
-      .hamburger { display: flex; }
-      .sim-grid { grid-template-columns: 1fr; }
-      .sim-body { padding: 20px 16px; }
-      section { padding: 50px 16px; }
-    }
-
-    /* ===== ACCORDION (FAQ-style) ===== */
-    details {
-      background: var(--card); border-radius: 12px;
-      padding: 16px 20px; margin-bottom: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.04);
-      border: 1px solid #e2e8f0;
-    }
-    details summary {
-      font-weight: 700; cursor: pointer; list-style: none;
-      display: flex; align-items: center; gap: 8px;
-    }
-    details summary::before { content: '▸'; transition: .2s; }
-    details[open] summary::before { transform: rotate(90deg); }
-    details p { margin-top: 10px; color: var(--text-light); }
-
-    /* ===== HIGHLIGHT ===== */
-    .highlight-blue { background: var(--blue-light); padding: 2px 8px; border-radius: 6px; }
-    .highlight-green { background: var(--green-light); padding: 2px 8px; border-radius: 6px; }
-
-    /* ===== STEP INDICATOR ===== */
-    .step {
-      display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px;
-    }
-    .step-num {
-      flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: .95rem; color: #fff;
-    }
-    .step-num.blue { background: var(--blue); }
-    .step-num.green { background: var(--green); }
-  </style>
+/* scrollbar */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:#3a4560}
+</style>
 </head>
 <body>
 
-<!-- ==================== NAVBAR ==================== -->
-<nav id="navbar">
-  <div class="nav-inner">
-    <div class="nav-logo">📐 MathModel</div>
-    <button class="hamburger" id="menuBtn" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#intro">Introdução</a></li>
-      <li><a href="#funcao1">1º Grau</a></li>
-      <li><a href="#sim1">Simulador 1</a></li>
-      <li><a href="#funcao2">2º Grau</a></li>
-      <li><a href="#sim2">Simulador 2</a></li>
-    </ul>
+<!-- =========================================================
+     NAVEGAÇÃO
+     ========================================================= -->
+<nav class="navbar">
+  <div class="container">
+    <div class="nav-logo"><span class="dot"></span> MathModel</div>
+    <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="#intro">Introdução</a>
+      <a href="#funcao1">1º Grau</a>
+      <a href="#sim1">Simulador 1</a>
+      <a href="#funcao2">2º Grau</a>
+      <a href="#sim2">Simulador 2</a>
+    </div>
   </div>
 </nav>
 
-<!-- ==================== HERO ==================== -->
+<!-- =========================================================
+     HERO
+     ========================================================= -->
 <header class="hero">
-  <div>
+  <div class="container">
+    <div class="hero-badge">📐 Ensino Médio — Matemática Aplicada</div>
     <h1>
-      A Matemática é a<br>
-      <span class="blue">Linguagem</span> da
-      <span class="green">Realidade</span>
+      Modelagem Matemática:<br>
+      <span class="highlight-blue">Funções de 1º</span> e
+      <span class="highlight-green">2º Graus</span>
     </h1>
     <p>
-      Descubra como funções de 1º e 2º graus modelam o mundo ao seu redor —
-      do preço da corrida de táxi à trajetória de um chute a gol.
-      Aprenda fazendo, com simuladores interativos!
+      Descubra como transformar problemas do mundo real em equações poderosas.
+      Da corrida de táxi ao chute a gol — a matemática é a linguagem que estrutura a realidade.
     </p>
-    <div class="hero-buttons">
-      <a href="#funcao1" class="btn btn-blue">📈 Função de 1º Grau</a>
-      <a href="#funcao2" class="btn btn-green">📉 Função de 2º Grau</a>
-      <a href="#intro" class="btn btn-outline">O que é Modelagem?</a>
-    </div>
+    <a href="#intro" class="hero-cta">Começar a explorar ↓</a>
   </div>
 </header>
 
-<!-- ==================== INTRODUÇÃO ==================== -->
+<!-- =========================================================
+     INTRODUÇÃO
+     ========================================================= -->
 <section id="intro">
-  <div class="container fade-up">
-    <span class="section-badge badge-orange">Conceito Fundamental</span>
-    <h2 class="section-title">O que é Modelagem Matemática?</h2>
-    <p class="section-subtitle">
-      Modelagem matemática é a <strong>arte de transformar problemas da vida real em problemas matemáticos</strong>,
-      resolvê-los com as ferramentas da matemática e, depois, interpretar a solução de volta na realidade.
-    </p>
-
-    <div class="grid-3">
-      <div class="card">
-        <div class="step">
-          <div class="step-num blue">1</div>
-          <div>
-            <h3>Identificar</h3>
-            <p>Observe o problema real: quais grandezas variam? O que depende de quê?</p>
-          </div>
-        </div>
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-label blue">📖 Capítulo 0</span>
+      <h2 class="section-title">O que é Modelagem Matemática?</h2>
+      <p class="section-desc">
+        Modelagem matemática é a <strong>arte de transformar problemas da realidade em problemas matemáticos</strong> — e depois resolvê-los para obter respostas úteis. Em vez de decorar fórmulas soltas, você aprende a <em>ler o mundo</em> com os olhos da matemática.
+      </p>
+    </div>
+    <div class="intro-visual fade-up">
+      <div class="intro-step">
+        <div class="step-num">1</div>
+        <h4>Problema Real</h4>
+        <p>Quanto custa produzir 200 camisetas na minha loja?</p>
       </div>
-      <div class="card">
-        <div class="step">
-          <div class="step-num blue">2</div>
-          <div>
-            <h3>Traduzir</h3>
-            <p>Escreva uma equação ou função que relacione essas grandezas com símbolos matemáticos.</p>
-          </div>
-        </div>
+      <div class="intro-step">
+        <div class="step-num">2</div>
+        <h4>Modelo Matemático</h4>
+        <p>Traduzimos para uma função: <em>f(x) = ax + b</em></p>
       </div>
-      <div class="card">
-        <div class="step">
-          <div class="step-num green">3</div>
-          <div>
-            <h3>Resolver & Interpretar</h3>
-            <p>Use a matemática para encontrar a resposta e traduza de volta para o contexto original.</p>
-          </div>
-        </div>
+      <div class="intro-step">
+        <div class="step-num">3</div>
+        <h4>Solução & Decisão</h4>
+        <p>Calculamos, interpretamos e tomamos decisões inteligentes.</p>
       </div>
     </div>
-
-    <div class="formula-box" style="margin-top:32px;">
-      💡 <strong>Exemplo rápido:</strong> Se cada pizza custa R$ 35 e a entrega é R$ 8, o custo total é
-      $C(x) = 35x + 8$. Isso é modelagem!
-    </div>
-  </div>
-</section>
-
-<!-- ==================== FUNÇÃO DE 1º GRAU ==================== -->
-<section id="funcao1" style="background:#fff;">
-  <div class="container fade-up">
-    <span class="section-badge badge-blue">Função Afim</span>
-    <h2 class="section-title">Função de 1º Grau</h2>
-    <p class="section-subtitle">
-      A função mais simples — e uma das mais poderosas — para modelar situações onde uma grandeza
-      cresce (ou decresce) de forma <strong>constante</strong>.
-    </p>
-
-    <div class="formula-box">
-      $$f(x) = ax + b$$
-    </div>
-
-    <div class="grid-2" style="margin-top:28px;">
+    <div class="card-grid fade-up" style="margin-top:2rem">
       <div class="card">
-        <h3>🔵 Coeficiente Angular ($a$)</h3>
-        <p>
-          É a <strong>taxa de variação</strong>: quanto $f(x)$ muda a cada unidade de $x$.
-          Se $a > 0$, a função é <em>crescente</em>; se $a < 0$, é <em>decrescente</em>.
-          Geometricamente, $a$ é a <strong>inclinação</strong> da reta.
-        </p>
+        <div class="card-icon blue">🚕</div>
+        <h3>Economia do dia a dia</h3>
+        <p>Corridas de táxi, contas de luz, salários com comissão — tudo segue padrões que funções descrevem.</p>
       </div>
       <div class="card">
-        <h3>🔵 Coeficiente Linear ($b$)</h3>
-        <p>
-          É o <strong>valor inicial</strong>: o ponto onde a reta cruza o eixo $y$
-          (quando $x = 0$). Na vida real, costuma representar um <em>custo fixo</em>,
-          uma <em>tarifa base</em> ou uma <em>posição inicial</em>.
-        </p>
+        <div class="card-icon green">⚽</div>
+        <h3>Física & Esportes</h3>
+        <p>A trajetória de uma bola chutada a gol é uma parábola perfeita. A Física usa funções para prever movimentos.</p>
       </div>
-    </div>
-
-    <h3 style="margin:36px 0 16px; font-size:1.2rem;">🌍 Onde você encontra isso no dia a dia?</h3>
-
-    <div class="grid-3">
-      <div class="example-card">
-        <h4>🚕 Corrida de Táxi</h4>
-        <p>
-          Bandeirada de R$ 6,00 + R$ 0,50 por km rodado:<br>
-          $y = 0{,}50x + 6$
-        </p>
-      </div>
-      <div class="example-card">
-        <h4>💰 Salário com Comissão</h4>
-        <p>
-          Fixo de R$ 2.000 + 5% das vendas ($x$):<br>
-          $S(x) = 0{,}05x + 2000$
-        </p>
-      </div>
-      <div class="example-card">
-        <h4>🚗 MRU (Física)</h4>
-        <p>
-          Um carro a 80 km/h partindo do km 10:<br>
-          $S(t) = 80t + 10$
-        </p>
+      <div class="card">
+        <div class="card-icon blue">📈</div>
+        <h3>Negócios & Otimização</h3>
+        <p>Qual o preço ideal para maximizar o lucro? O vértice da parábola tem a resposta.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SIMULADOR 1º GRAU ==================== -->
-<section id="sim1">
-  <div class="container fade-up">
-    <span class="section-badge badge-blue">Interativo</span>
-    <h2 class="section-title">Simulador: Custo de Produção</h2>
-    <p class="section-subtitle">
-      Uma fábrica tem um <strong>custo fixo</strong> (aluguel, máquinas) e um
-      <strong>custo por unidade</strong> produzida. Ajuste os valores e veja o gráfico mudar em tempo real!
-    </p>
+<div class="divider"></div>
 
-    <div class="simulator">
-      <div class="sim-header blue-bg">📊 Calculadora de Custo Total — $C(x) = ax + b$</div>
+<!-- =========================================================
+     FUNÇÃO DE 1º GRAU
+     ========================================================= -->
+<section id="funcao1">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-label blue">📘 Capítulo 1</span>
+      <h2 class="section-title">Função de 1º Grau (Função Afim)</h2>
+      <p class="section-desc">
+        A função mais simples que existe — e uma das mais poderosas. Ela modela qualquer situação onde a variação é <strong>constante</strong>: quanto mais você produz, mais você gasta, sempre na mesma proporção.
+      </p>
+    </div>
+
+    <div class="theory-box blue fade-up">
+      <h3>📐 Definição Formal</h3>
+      <p>Uma função de 1º grau (ou <strong>função afim</strong>) é toda função definida por:</p>
+      <div class="formula blue">f(x) = ax + b</div>
+      <p style="margin-top:1rem">Onde <strong>a</strong> e <strong>b</strong> são números reais e <strong>a ≠ 0</strong>.</p>
+      <ul class="feature-list" style="margin-top:1rem">
+        <li><span class="coeff a">a</span> → <strong>Coeficiente angular</strong> (taxa de variação): indica o quanto <em>f(x)</em> cresce ou decresce a cada unidade de <em>x</em>. Se <em>a &gt; 0</em>, a função é crescente; se <em>a &lt; 0</em>, é decrescente.</li>
+        <li><span class="coeff b">b</span> → <strong>Coeficiente linear</strong> (valor inicial): é o valor de <em>f(0)</em>, ou seja, onde a reta cruza o eixo vertical. Representa o ponto de partida.</li>
+      </ul>
+    </div>
+
+    <div class="card-grid fade-up">
+      <div class="card">
+        <h3>🚕 Corrida de Táxi</h3>
+        <p>O taxímetro cobra R$&nbsp;6,00 de bandeirada mais R$&nbsp;0,50 por quilômetro rodado:</p>
+        <div class="formula blue" style="font-size:.95rem">y = 0,50x + 6</div>
+        <p style="margin-top:.5rem">Aqui, <span class="coeff b">b = 6</span> é o valor fixo e <span class="coeff a">a = 0,50</span> é o custo por km.</p>
+      </div>
+      <div class="card">
+        <h3>💰 Salário com Comissão</h3>
+        <p>Um vendedor recebe R$&nbsp;1.500 fixos mais R$&nbsp;200 por venda realizada:</p>
+        <div class="formula blue" style="font-size:.95rem">S(v) = 200v + 1500</div>
+        <p style="margin-top:.5rem">Cada venda adiciona a mesma quantia ao salário — variação constante!</p>
+      </div>
+      <div class="card">
+        <h3>🚀 MRU (Física)</h3>
+        <p>No Movimento Retilíneo Uniforme, a posição varia linearmente com o tempo:</p>
+        <div class="formula blue" style="font-size:.95rem">S(t) = v · t + S₀</div>
+        <p style="margin-top:.5rem">A velocidade <em>v</em> é o coeficiente angular e <em>S₀</em> é a posição inicial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     SIMULADOR 1º GRAU
+     ========================================================= -->
+<section id="sim1" style="padding-top:0">
+  <div class="container">
+    <div class="simulator fade-up">
+      <div class="sim-header">
+        <span class="sim-dot blue"></span>
+        <h3>Simulador — Custo de Produção (1º Grau)</h3>
+      </div>
       <div class="sim-body">
-        <div class="sim-grid">
-          <!-- Controles -->
-          <div class="sim-controls">
-            <div class="input-group">
-              <label for="s1_a">Custo por unidade ($a$): R$ <span id="s1_a_val">12</span></label>
-              <input type="range" id="s1_a" min="1" max="100" value="12" step="1">
-            </div>
-            <div class="input-group">
-              <label for="s1_b">Custo fixo ($b$): R$ <span id="s1_b_val">500</span></label>
-              <input type="range" id="s1_b" min="0" max="5000" value="500" step="50">
-            </div>
-            <div class="input-group">
-              <label for="s1_x">Quantidade produzida ($x$): <span id="s1_x_val">80</span> un.</label>
-              <input type="range" id="s1_x" min="0" max="500" value="80" step="1">
-            </div>
-
-            <div class="sim-result">
-              <strong>Custo Total:</strong> R$ <span id="s1_total">1460</span><br>
-              <small>Função: $C(x) = <span id="s1_formula">12x + 500</span>$</small>
+        <div class="sim-controls">
+          <div class="input-group">
+            <label>Custo Fixo — <span class="coeff b">b</span> (R$) <span class="range-val" id="valB1">500</span></label>
+            <input type="range" id="inputB1" min="0" max="5000" step="50" value="500">
+          </div>
+          <div class="input-group">
+            <label>Custo por Unidade — <span class="coeff a">a</span> (R$) <span class="range-val" id="valA1">12</span></label>
+            <input type="range" id="inputA1" min="1" max="100" step="1" value="12">
+          </div>
+          <div class="input-group">
+            <label>Quantidade Produzida — x <span class="range-val" id="valX1">100</span></label>
+            <input type="range" id="inputX1" min="0" max="500" step="5" value="100">
+          </div>
+          <div class="output-box blue">
+            <div class="output-label">Resultado</div>
+            <div>
+              <strong>Fórmula:</strong> C(x) = <span id="fA1">12</span>x + <span id="fB1">500</span><br>
+              <strong>Custo Total:</strong> C(<span id="fX1">100</span>) = R$ <span id="resultCost1" style="font-size:1.15rem;color:var(--accent-blue)">1.700,00</span>
             </div>
           </div>
-
-          <!-- Gráfico -->
-          <div class="sim-canvas-wrap">
-            <canvas id="canvas1" width="520" height="400"></canvas>
-          </div>
+        </div>
+        <div class="sim-canvas-wrap">
+          <canvas id="canvas1" width="480" height="360"></canvas>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== FUNÇÃO DE 2º GRAU ==================== -->
-<section id="funcao2" style="background:#fff;">
-  <div class="container fade-up">
-    <span class="section-badge badge-green">Função Quadrática</span>
-    <h2 class="section-title">Função de 2º Grau</h2>
-    <p class="section-subtitle">
-      Quando a taxa de variação <em>não</em> é constante, precisamos de uma parábola.
-      A função quadrática modela aceleração, trajetórias e otimização.
-    </p>
+<div class="divider"></div>
 
-    <div class="formula-box">
-      $$f(x) = ax^2 + bx + c \quad (a \neq 0)$$
+<!-- =========================================================
+     FUNÇÃO DE 2º GRAU
+     ========================================================= -->
+<section id="funcao2">
+  <div class="container">
+    <div class="fade-up">
+      <span class="section-label green">📗 Capítulo 2</span>
+      <h2 class="section-title">Função de 2º Grau (Função Quadrática)</h2>
+      <p class="section-desc">
+        Quando a variação <em>não</em> é constante — ela acelera ou desacelera — precisamos de uma função mais poderosa. A função quadrática descreve curvas, trajetórias e pontos de máximo ou mínimo que governam o mundo ao nosso redor.
+      </p>
     </div>
 
-    <div class="grid-2" style="margin-top:28px;">
-      <div class="card">
-        <h3>🟢 A Parábola e a Concavidade</h3>
-        <p>
-          O gráfico é uma <strong>parábola</strong>. O sinal de $a$ define a concavidade:
-        </p>
-        <ul style="margin-top:8px;">
-          <li>$a > 0$ → concavidade para <strong>cima</strong> (sorriso 😊) → vértice é <em>mínimo</em></li>
-          <li>$a < 0$ → concavidade para <strong>baixo</strong> (triste 😢) → vértice é <em>máximo</em></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>🟢 Vértice: O Ponto-Chave</h3>
-        <p>
-          O vértice $(x_v, y_v)$ é o ponto de <strong>máximo ou mínimo</strong> da função:
-        </p>
-        <p style="text-align:center; margin-top:10px; font-size:1.1rem;">
-          $x_v = \dfrac{-b}{2a}$, &nbsp; $y_v = f(x_v)$
-        </p>
-        <p style="margin-top:8px;">
-          Na prática, é onde o lucro é máximo, o custo é mínimo ou o projétil atinge a altura máxima!
-        </p>
-      </div>
+    <div class="theory-box green fade-up">
+      <h3>📐 Definição Formal</h3>
+      <p>Uma função de 2º grau (ou <strong>função quadrática</strong>) é toda função definida por:</p>
+      <div class="formula green">f(x) = ax² + bx + c</div>
+      <p style="margin-top:1rem">Onde <strong>a</strong>, <strong>b</strong> e <strong>c</strong> são números reais e <strong>a ≠ 0</strong>.</p>
+      <ul class="feature-list green-list" style="margin-top:1rem">
+        <li><span class="coeff a">a</span> → <strong>Concavidade</strong>: se <em>a &gt; 0</em>, a parábola abre para <strong>cima</strong> (∪) e o vértice é ponto de <strong>mínimo</strong>. Se <em>a &lt; 0</em>, abre para <strong>baixo</strong> (∩) e o vértice é ponto de <strong>máximo</strong>.</li>
+        <li><span class="coeff b">b</span> → Influencia a posição horizontal do vértice e a inclinação da curva na origem.</li>
+        <li><span class="coeff c">c</span> → <strong>Termo independente</strong>: é o valor de <em>f(0)</em>, onde a parábola cruza o eixo vertical.</li>
+      </ul>
+      <p style="margin-top:1.25rem"><strong>Vértice da parábola:</strong></p>
+      <div class="formula green" style="font-size:.95rem">x<sub>v</sub> = −b / (2a) &nbsp;&nbsp;|&nbsp;&nbsp; y<sub>v</sub> = f(x<sub>v</sub>)</div>
+      <p style="margin-top:.75rem"><strong>Raízes (zeros da função):</strong></p>
+      <div class="formula green" style="font-size:.95rem">x = (−b ± √Δ) / (2a) &nbsp;&nbsp; onde &nbsp; Δ = b² − 4ac</div>
     </div>
 
-    <h3 style="margin:36px 0 16px; font-size:1.2rem;">🌍 Aplicações que vão te surpreender</h3>
-
-    <div class="grid-3">
-      <div class="example-card green">
-        <h4>⚽ Trajetória de um Chute</h4>
-        <p>
-          A bola segue uma parábola. A altura $h$ em função da distância $x$:
-          $h(x) = -0{,}02x^2 + 1{,}2x$
-        </p>
+    <div class="card-grid fade-up">
+      <div class="card">
+        <h3>⚽ Trajetória de Projéteis</h3>
+        <p>Quando você chuta uma bola a gol, ela sobe, atinge uma altura máxima e depois desce. Essa curva é uma <strong>parábola</strong> — descrita perfeitamente por uma função quadrática!</p>
       </div>
-      <div class="example-card green">
-        <h4>📐 Otimização de Áreas</h4>
-        <p>
-          Com 40 m de cerca, qual o retângulo de maior área?
-          $A(x) = x(20 - x) = -x^2 + 20x$
-        </p>
+      <div class="card">
+        <h3>🏗️ Otimização de Áreas</h3>
+        <p>Com 40 metros de cerca, qual o maior retângulo que você pode cercar? A resposta vem do <strong>vértice</strong> da parábola que modela a área em função de um dos lados.</p>
       </div>
-      <div class="example-card green">
-        <h4>💵 Lucro Máximo</h4>
-        <p>
-          Lucro em função do preço: $L(p) = -2p^2 + 200p - 3000$.
-          O vértice dá o preço ideal!
-        </p>
+      <div class="card">
+        <h3>💹 Lucro Máximo / Custo Mínimo</h3>
+        <p>Empresas modelam lucro e custo com funções quadráticas. O vértice da parábola indica exatamente a quantidade que <strong>maximiza o lucro</strong> ou <strong>minimiza o custo</strong>.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== SIMULADOR 2º GRAU ==================== -->
-<section id="sim2">
-  <div class="container fade-up">
-    <span class="section-badge badge-green">Interativo</span>
-    <h2 class="section-title">Simulador: Trajetória de Lançamento</h2>
-    <p class="section-subtitle">
-      Ajuste os coeficientes e veja a parábola se transformar. Observe o <strong>vértice</strong>
-      (altura máxima) e as <strong>raízes</strong> (pontos de alcance) em tempo real!
-    </p>
-
-    <div class="simulator">
-      <div class="sim-header green-bg">🚀 Trajetória — $f(x) = ax^2 + bx + c$</div>
+<!-- =========================================================
+     SIMULADOR 2º GRAU
+     ========================================================= -->
+<section id="sim2" style="padding-top:0">
+  <div class="container">
+    <div class="simulator fade-up">
+      <div class="sim-header">
+        <span class="sim-dot green"></span>
+        <h3>Simulador — Trajetória de Lançamento (2º Grau)</h3>
+      </div>
       <div class="sim-body">
-        <div class="sim-grid">
-          <!-- Controles -->
-          <div class="sim-controls">
-            <div class="input-group">
-              <label for="s2_a">Coeficiente $a$: <span id="s2_a_val">-0.5</span></label>
-              <input type="range" id="s2_a" min="-3" max="3" value="-0.5" step="0.1">
-            </div>
-            <div class="input-group">
-              <label for="s2_b">Coeficiente $b$: <span id="s2_b_val">5</span></label>
-              <input type="range" id="s2_b" min="-10" max="10" value="5" step="0.5">
-            </div>
-            <div class="input-group">
-              <label for="s2_c">Coeficiente $c$: <span id="s2_c_val">0</span></label>
-              <input type="range" id="s2_c" min="-10" max="10" value="0" step="0.5">
-            </div>
-
-            <div class="sim-result green">
-              <strong>Vértice:</strong> (<span id="s2_vx">5.00</span>, <span id="s2_vy">12.50</span>)<br>
-              <strong>Raízes:</strong> $x_1 = $ <span id="s2_r1">0.00</span>, $x_2 = $ <span id="s2_r2">10.00</span><br>
-              <strong>Concavidade:</strong> <span id="s2_conc">para baixo ↓</span><br>
-              <small>Função: $f(x) = <span id="s2_formula">-0.5x² + 5x</span>$</small>
+        <div class="sim-controls">
+          <div class="input-group">
+            <label>Coeficiente <span class="coeff a">a</span> <span class="range-val" id="valA2">-1</span></label>
+            <input type="range" id="inputA2" min="-5" max="5" step="0.1" value="-1">
+          </div>
+          <div class="input-group">
+            <label>Coeficiente <span class="coeff b">b</span> <span class="range-val" id="valB2">8</span></label>
+            <input type="range" id="inputB2" min="-20" max="20" step="0.5" value="8">
+          </div>
+          <div class="input-group">
+            <label>Coeficiente <span class="coeff c">c</span> <span class="range-val" id="valC2">0</span></label>
+            <input type="range" id="inputC2" min="-20" max="20" step="0.5" value="0">
+          </div>
+          <div class="output-box green">
+            <div class="output-label">Resultado</div>
+            <div>
+              <strong>Fórmula:</strong> f(x) = <span id="fA2">-1</span>x² + <span id="fB2">8</span>x + <span id="fC2">0</span><br>
+              <strong>Concavidade:</strong> <span id="concavidade">Para baixo (∩) — Máximo</span><br>
+              <strong>Vértice:</strong> (<span id="vx">4.00</span>, <span id="vy">16.00</span>)<br>
+              <strong>Δ =</strong> <span id="delta">64.00</span><br>
+              <strong>Raízes:</strong> <span id="raizes">x₁ = 0.00 &nbsp;|&nbsp; x₂ = 8.00</span>
             </div>
           </div>
-
-          <!-- Gráfico -->
-          <div class="sim-canvas-wrap">
-            <canvas id="canvas2" width="520" height="400"></canvas>
-          </div>
+        </div>
+        <div class="sim-canvas-wrap">
+          <canvas id="canvas2" width="480" height="360"></canvas>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== FAQ / RESUMO ==================== -->
-<section style="background:#fff;">
-  <div class="container fade-up">
-    <span class="section-badge badge-orange">Revisão Rápida</span>
-    <h2 class="section-title">Perguntas Frequentes</h2>
-
-    <details>
-      <summary>Qual a diferença entre função de 1º e 2º grau?</summary>
-      <p>
-        A de 1º grau ($ax + b$) tem gráfico em <strong>linha reta</strong> e taxa de variação constante.
-        A de 2º grau ($ax^2 + bx + c$) tem gráfico em <strong>parábola</strong> e taxa de variação que muda
-        — por isso modela aceleração e otimização.
-      </p>
-    </details>
-    <details>
-      <summary>Por que o vértice é tão importante?</summary>
-      <p>
-        O vértice é o ponto de <strong>máximo ou mínimo</strong> da parábola. Na vida real, isso significa
-        o lucro mais alto, o custo mais baixo ou a altura máxima de um projétil. É a resposta que todo
-        gestor (ou jogador de futebol!) quer encontrar.
-      </p>
-    </details>
-    <details>
-      <summary>Como sei se devo usar 1º ou 2º grau?</summary>
-      <p>
-        Se a grandeza muda de forma <em>proporcional e constante</em> (ex: preço por km), use 1º grau.
-        Se há <em>aceleração, curvatura ou um ponto ótimo</em> (ex: trajetória, lucro máximo), use 2º grau.
-      </p>
-    </details>
-    <details>
-      <summary>O que são as raízes da função quadrática?</summary>
-      <p>
-        São os valores de $x$ onde $f(x) = 0$, ou seja, onde a parábola cruza o eixo horizontal.
-        No exemplo do chute, as raízes são o ponto de saída e o ponto onde a bola toca o chão.
-        Calculamos com a <strong>fórmula de Bhaskara</strong>: $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$.
-      </p>
-    </details>
-  </div>
-</section>
-
-<!-- ==================== FOOTER ==================== -->
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
 <footer>
-  <p>
-    📐 <strong>MathModel</strong> — Objeto de Aprendizagem Digital<br>
-    Feito com ❤️ para alunos do Ensino Médio &nbsp;|&nbsp;
-    <a href="https://github.com" target="_blank">Publicar no GitHub Pages</a>
-  </p>
-  <p style="margin-top:8px; font-size:.82rem;">
-    A matemática não é um monstro. É a linguagem que estrutura a realidade. — Use-a a seu favor! 🚀
-  </p>
+  <div class="container">
+    <p>
+      Feito com 💙 para alunos do Ensino Médio — <strong>MathModel</strong><br>
+      <span style="font-size:.8rem">A matemática não é um conjunto de regras arbitrárias. É a linguagem com que o universo foi escrito. — Galileu</span>
+    </p>
+  </div>
 </footer>
 
-<!-- ==================== JAVASCRIPT ==================== -->
+<!-- =========================================================
+     JAVASCRIPT
+     ========================================================= -->
 <script>
-// ===== NAVBAR =====
-const navbar = document.getElementById('navbar');
-const menuBtn = document.getElementById('menuBtn');
-const navLinks = document.getElementById('navLinks');
+/* ==========================================================
+   UTILIDADES
+   ========================================================== */
+function fmt(n,d=2){return Number(n).toFixed(d)}
+function fmtBR(n){return Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
 
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 20);
-});
-menuBtn.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-});
-navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => navLinks.classList.remove('open'));
-});
+/* Scroll reveal */
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
-// ===== SCROLL ANIMATIONS =====
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15 });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+/* ==========================================================
+   SIMULADOR 1º GRAU
+   ========================================================== */
+const iA1=document.getElementById('inputA1');
+const iB1=document.getElementById('inputB1');
+const iX1=document.getElementById('inputX1');
+const canvas1=document.getElementById('canvas1');
+const ctx1=canvas1.getContext('2d');
 
-// ===== SIMULADOR 1º GRAU =====
-const s1a = document.getElementById('s1_a');
-const s1b = document.getElementById('s1_b');
-const s1x = document.getElementById('s1_x');
-const canvas1 = document.getElementById('canvas1');
-const ctx1 = canvas1.getContext('2d');
-
-function updateSim1() {
-  const a = +s1a.value, b = +s1b.value, x = +s1x.value;
-  document.getElementById('s1_a_val').textContent = a;
-  document.getElementById('s1_b_val').textContent = b;
-  document.getElementById('s1_x_val').textContent = x;
-  const total = a * x + b;
-  document.getElementById('s1_total').textContent = total.toLocaleString('pt-BR');
-  document.getElementById('s1_formula').textContent = `${a}x + ${b}`;
-  drawGraph1(a, b, x, total);
+function updateSim1(){
+  const a=+iA1.value, b=+iB1.value, x=+iX1.value;
+  document.getElementById('valA1').textContent=a;
+  document.getElementById('valB1').textContent=b;
+  document.getElementById('valX1').textContent=x;
+  document.getElementById('fA1').textContent=a;
+  document.getElementById('fB1').textContent=b;
+  document.getElementById('fX1').textContent=x;
+  const total=a*x+b;
+  document.getElementById('resultCost1').textContent=fmtBR(total);
+  drawGraph1(a,b,x);
 }
+[iA1,iB1,iX1].forEach(el=>el.addEventListener('input',updateSim1));
 
-function drawGraph1(a, b, xPoint, yPoint) {
-  const W = canvas1.width, H = canvas1.height;
-  const dpr = window.devicePixelRatio || 1;
-  canvas1.width = 520 * dpr;
-  canvas1.height = 400 * dpr;
-  canvas1.style.width = '520px';
-  canvas1.style.height = '400px';
-  ctx1.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const w = 520, h = 400;
+function drawGraph1(a,b,px){
+  const W=canvas1.width, H=canvas1.height;
+  const dpr=window.devicePixelRatio||1;
+  canvas1.width=W*dpr; canvas1.height=H*dpr;
+  canvas1.style.width=W+'px'; canvas1.style.height=H+'px';
+  const ctx=ctx1;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
 
-  ctx1.clearRect(0, 0, w, h);
+  ctx.clearRect(0,0,W,H);
 
-  // Determine range
-  const xMax = Math.max(xPoint * 1.5, 50);
-  const yMax = Math.max(yPoint * 1.3, b + a * 10, 100);
-  const pad = { l: 60, r: 20, t: 20, b: 40 };
-  const gw = w - pad.l - pad.r;
-  const gh = h - pad.t - pad.b;
+  /* Determine range */
+  const xMax=Math.max(px*1.5,10);
+  const yMax=a*xMax+b;
+  const yMin=b;
+  const padL=55,padR=20,padT=25,padB=40;
+  const gw=W-padL-padR, gh=H-padT-padB;
 
-  function toX(v) { return pad.l + (v / xMax) * gw; }
-  function toY(v) { return pad.t + gh - (v / yMax) * gh; }
-
-  // Grid
-  ctx1.strokeStyle = '#e2e8f0'; ctx1.lineWidth = 1;
-  for (let i = 0; i <= 5; i++) {
-    const yy = pad.t + (gh / 5) * i;
-    ctx1.beginPath(); ctx1.moveTo(pad.l, yy); ctx1.lineTo(w - pad.r, yy); ctx1.stroke();
-    const val = Math.round(yMax - (yMax / 5) * i);
-    ctx1.fillStyle = '#94a3b8'; ctx1.font = '11px sans-serif'; ctx1.textAlign = 'right';
-    ctx1.fillText(val, pad.l - 8, yy + 4);
-  }
-  for (let i = 0; i <= 5; i++) {
-    const xx = pad.l + (gw / 5) * i;
-    ctx1.beginPath(); ctx1.moveTo(xx, pad.t); ctx1.lineTo(xx, h - pad.b); ctx1.stroke();
-    const val = Math.round((xMax / 5) * i);
-    ctx1.fillStyle = '#94a3b8'; ctx1.font = '11px sans-serif'; ctx1.textAlign = 'center';
-    ctx1.fillText(val, xx, h - pad.b + 16);
+  function toCanvas(x,y){
+    return [padL+(x/xMax)*gw, padT+gh-((y-yMin)/(yMax-yMin||1))*gh];
   }
 
-  // Axes labels
-  ctx1.fillStyle = '#64748b'; ctx1.font = 'bold 12px sans-serif';
-  ctx1.textAlign = 'center';
-  ctx1.fillText('Quantidade (x)', w / 2, h - 4);
-  ctx1.save(); ctx1.translate(14, h / 2); ctx1.rotate(-Math.PI / 2);
-  ctx1.fillText('Custo (R$)', 0, 0); ctx1.restore();
+  /* Grid */
+  ctx.strokeStyle='#1e2740';ctx.lineWidth=1;
+  for(let i=0;i<=5;i++){
+    const yy=padT+gh*i/5;
+    ctx.beginPath();ctx.moveTo(padL,yy);ctx.lineTo(W-padR,yy);ctx.stroke();
+    const val=yMax-(yMax-yMin)*i/5;
+    ctx.fillStyle='#5a6480';ctx.font='11px Inter,sans-serif';ctx.textAlign='right';
+    ctx.fillText(fmt(val,0),padL-8,yy+4);
+  }
+  for(let i=0;i<=5;i++){
+    const xx=padL+gw*i/5;
+    ctx.beginPath();ctx.moveTo(xx,padT);ctx.lineTo(xx,padT+gh);ctx.stroke();
+    const val=xMax*i/5;
+    ctx.fillStyle='#5a6480';ctx.textAlign='center';
+    ctx.fillText(fmt(val,0),xx,H-padB+18);
+  }
 
-  // Line
-  ctx1.strokeStyle = '#2563eb'; ctx1.lineWidth = 3;
-  ctx1.beginPath();
-  ctx1.moveTo(toX(0), toY(b));
-  ctx1.lineTo(toX(xMax), toY(a * xMax + b));
-  ctx1.stroke();
+  /* Axes labels */
+  ctx.fillStyle='#8892a8';ctx.font='bold 11px Inter,sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText('Quantidade (x)',padL+gw/2,H-5);
+  ctx.save();ctx.translate(14,padT+gh/2);ctx.rotate(-Math.PI/2);
+  ctx.fillText('Custo (R$)',0,0);ctx.restore();
 
-  // Point
-  const px = toX(xPoint), py = toY(yPoint);
-  ctx1.fillStyle = '#ea580c';
-  ctx1.beginPath(); ctx1.arc(px, py, 7, 0, Math.PI * 2); ctx1.fill();
-  ctx1.fillStyle = '#fff';
-  ctx1.beginPath(); ctx1.arc(px, py, 3, 0, Math.PI * 2); ctx1.fill();
+  /* Line */
+  ctx.beginPath();
+  const [x0,y0]=toCanvas(0,b);
+  ctx.moveTo(x0,y0);
+  const [x1,y1]=toCanvas(xMax,a*xMax+b);
+  ctx.lineTo(x1,y1);
+  ctx.strokeStyle='#4d8ef7';ctx.lineWidth=3;ctx.lineCap='round';ctx.stroke();
 
-  // Label
-  ctx1.fillStyle = '#1e293b'; ctx1.font = 'bold 12px sans-serif'; ctx1.textAlign = 'left';
-  ctx1.fillText(`(${xPoint}, R$${yPoint.toLocaleString('pt-BR')})`, px + 12, py - 8);
+  /* Glow */
+  ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1,y1);
+  ctx.strokeStyle='rgba(77,142,247,.15)';ctx.lineWidth=12;ctx.stroke();
+
+  /* Point */
+  const [ppx,ppy]=toCanvas(px,a*px+b);
+  ctx.beginPath();ctx.arc(ppx,ppy,7,0,Math.PI*2);
+  ctx.fillStyle='#4d8ef7';ctx.fill();
+  ctx.beginPath();ctx.arc(ppx,ppy,12,0,Math.PI*2);
+  ctx.fillStyle='rgba(77,142,247,.2)';ctx.fill();
+
+  /* Dashed lines to axes */
+  ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(77,142,247,.35)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(ppx,ppy);ctx.lineTo(ppx,padT+gh);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(ppx,ppy);ctx.lineTo(padL,ppy);ctx.stroke();
+  ctx.setLineDash([]);
+
+  /* Label */
+  ctx.fillStyle='#e4e8f1';ctx.font='bold 12px JetBrains Mono,monospace';ctx.textAlign='left';
+  ctx.fillText(`(${px}, ${fmtBR(a*px+b)})`,ppx+14,ppy-10);
 }
-
-s1a.addEventListener('input', updateSim1);
-s1b.addEventListener('input', updateSim1);
-s1x.addEventListener('input', updateSim1);
 updateSim1();
 
-// ===== SIMULADOR 2º GRAU =====
-const s2a = document.getElementById('s2_a');
-const s2b = document.getElementById('s2_b');
-const s2c = document.getElementById('s2_c');
-const canvas2 = document.getElementById('canvas2');
-const ctx2 = canvas2.getContext('2d');
+/* ==========================================================
+   SIMULADOR 2º GRAU
+   ========================================================== */
+const iA2=document.getElementById('inputA2');
+const iB2=document.getElementById('inputB2');
+const iC2=document.getElementById('inputC2');
+const canvas2=document.getElementById('canvas2');
+const ctx2=canvas2.getContext('2d');
 
-function updateSim2() {
-  let a = +s2a.value, b = +s2b.value, c = +s2c.value;
-  if (a === 0) a = 0.1; // avoid degenerate
-  document.getElementById('s2_a_val').textContent = a;
-  document.getElementById('s2_b_val').textContent = b;
-  document.getElementById('s2_c_val').textContent = c;
+function updateSim2(){
+  let a=+iA2.value, b=+iB2.value, c=+iC2.value;
+  if(a===0){a=0.1;iA2.value=0.1;}
+  document.getElementById('valA2').textContent=fmt(a,1);
+  document.getElementById('valB2').textContent=fmt(b,1);
+  document.getElementById('valC2').textContent=fmt(c,1);
+  document.getElementById('fA2').textContent=fmt(a,1);
+  document.getElementById('fB2').textContent=fmt(b,1);
+  document.getElementById('fC2').textContent=fmt(c,1);
 
-  const vx = -b / (2 * a);
-  const vy = a * vx * vx + b * vx + c;
-  document.getElementById('s2_vx').textContent = vx.toFixed(2);
-  document.getElementById('s2_vy').textContent = vy.toFixed(2);
+  const xv=-b/(2*a);
+  const yv=a*xv*xv+b*xv+c;
+  const delta=b*b-4*a*c;
 
-  const delta = b * b - 4 * a * c;
-  let r1 = '—', r2 = '—';
-  if (delta >= 0) {
-    r1 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(2);
-    r2 = ((-b + Math.sqrt(delta)) / (2 * a)).toFixed(2);
+  document.getElementById('vx').textContent=fmt(xv);
+  document.getElementById('vy').textContent=fmt(yv);
+  document.getElementById('delta').textContent=fmt(delta);
+
+  if(a<0) document.getElementById('concavidade').innerHTML='Para baixo (∩) — <strong>Máximo</strong>';
+  else document.getElementById('concavidade').innerHTML='Para cima (∪) — <strong>Mínimo</strong>';
+
+  let rText='';
+  if(delta>0){
+    const r1=(-b-Math.sqrt(delta))/(2*a);
+    const r2=(-b+Math.sqrt(delta))/(2*a);
+    rText=`x₁ = ${fmt(Math.min(r1,r2))}  |  x₂ = ${fmt(Math.max(r1,r2))}`;
+  }else if(delta===0){
+    rText=`x = ${fmt(xv)} (raiz dupla)`;
+  }else{
+    rText='Não possui raízes reais (Δ < 0)';
   }
-  document.getElementById('s2_r1').textContent = r1;
-  document.getElementById('s2_r2').textContent = r2;
-  document.getElementById('s2_conc').textContent = a > 0 ? 'para cima ↑ (mínimo)' : 'para baixo ↓ (máximo)';
-
-  const aStr = a === 1 ? '' : a === -1 ? '-' : a;
-  const bStr = b >= 0 ? ` + ${b}x` : ` - ${Math.abs(b)}x`;
-  const cStr = c >= 0 ? ` + ${c}` : ` - ${Math.abs(c)}`;
-  document.getElementById('s2_formula').textContent = `${aStr}x²${bStr}${cStr}`;
-
-  drawGraph2(a, b, c, vx, vy, delta);
+  document.getElementById('raizes').textContent=rText;
+  drawGraph2(a,b,c,xv,yv,delta);
 }
+[iA2,iB2,iC2].forEach(el=>el.addEventListener('input',updateSim2));
 
-function drawGraph2(a, b, c, vx, vy, delta) {
-  const dpr = window.devicePixelRatio || 1;
-  canvas2.width = 520 * dpr;
-  canvas2.height = 400 * dpr;
-  canvas2.style.width = '520px';
-  canvas2.style.height = '400px';
-  ctx2.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const w = 520, h = 400;
-  ctx2.clearRect(0, 0, w, h);
+function drawGraph2(a,b,c,xv,yv,delta){
+  const W=480,H=360;
+  const dpr=window.devicePixelRatio||1;
+  canvas2.width=W*dpr;canvas2.height=H*dpr;
+  canvas2.style.width=W+'px';canvas2.style.height=H+'px';
+  const ctx=ctx2;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,W,H);
 
-  // Compute view range
-  let xMin = vx - 8, xMax = vx + 8;
-  if (delta >= 0) {
-    const r1 = (-b - Math.sqrt(delta)) / (2 * a);
-    const r2 = (-b + Math.sqrt(delta)) / (2 * a);
-    xMin = Math.min(r1, r2, vx) - 3;
-    xMax = Math.max(r1, r2, vx) + 3;
+  /* Compute view range */
+  let roots=[];
+  if(delta>=0){
+    roots.push((-b-Math.sqrt(delta))/(2*a));
+    roots.push((-b+Math.sqrt(delta))/(2*a));
   }
-  // Sample y range
-  let yMin = Infinity, yMax2 = -Infinity;
-  for (let px = xMin; px <= xMax; px += 0.1) {
-    const yy = a * px * px + b * px + c;
-    if (yy < yMin) yMin = yy;
-    if (yy > yMax2) yMax2 = yy;
+  let xPoints=[xv,0,...roots];
+  let xMinV=Math.min(...xPoints)-3;
+  let xMaxV=Math.max(...xPoints)+3;
+  if(xMaxV-xMinV<6){const mid=(xMaxV+xMinV)/2;xMinV=mid-3;xMaxV=mid+3;}
+
+  /* Sample y */
+  let yVals=[];
+  for(let i=0;i<=200;i++){
+    const xx=xMinV+(xMaxV-xMinV)*i/200;
+    yVals.push(a*xx*xx+b*xx+c);
   }
-  const yPad = Math.max((yMax2 - yMin) * 0.2, 2);
-  yMin -= yPad; yMax2 += yPad;
+  let yMinV=Math.min(...yVals,0);
+  let yMaxV=Math.max(...yVals,0);
+  const yPad=(yMaxV-yMinV)*0.15||5;
+  yMinV-=yPad;yMaxV+=yPad;
 
-  const pad = { l: 55, r: 20, t: 20, b: 35 };
-  const gw = w - pad.l - pad.r;
-  const gh = h - pad.t - pad.b;
+  const padL=50,padR=15,padT=20,padB=35;
+  const gw=W-padL-padR, gh=H-padT-padB;
 
-  function toX(v) { return pad.l + ((v - xMin) / (xMax - xMin)) * gw; }
-  function toY(v) { return pad.t + gh - ((v - yMin) / (yMax2 - yMin)) * gh; }
-
-  // Grid
-  ctx2.strokeStyle = '#e2e8f0'; ctx2.lineWidth = 1;
-  for (let i = 0; i <= 5; i++) {
-    const yy = pad.t + (gh / 5) * i;
-    ctx2.beginPath(); ctx2.moveTo(pad.l, yy); ctx2.lineTo(w - pad.r, yy); ctx2.stroke();
-    const val = (yMax2 - ((yMax2 - yMin) / 5) * i).toFixed(1);
-    ctx2.fillStyle = '#94a3b8'; ctx2.font = '10px sans-serif'; ctx2.textAlign = 'right';
-    ctx2.fillText(val, pad.l - 6, yy + 3);
+  function toC(x,y){
+    return [padL+((x-xMinV)/(xMaxV-xMinV))*gw, padT+gh-((y-yMinV)/(yMaxV-yMinV))*gh];
   }
 
-  // Zero line
-  if (yMin <= 0 && yMax2 >= 0) {
-    ctx2.strokeStyle = '#94a3b8'; ctx2.lineWidth = 1.5;
-    ctx2.beginPath(); ctx2.moveTo(pad.l, toY(0)); ctx2.lineTo(w - pad.r, toY(0)); ctx2.stroke();
+  /* Grid */
+  ctx.strokeStyle='#1e2740';ctx.lineWidth=1;
+  for(let i=0;i<=5;i++){
+    const yy=padT+gh*i/5;
+    ctx.beginPath();ctx.moveTo(padL,yy);ctx.lineTo(W-padR,yy);ctx.stroke();
+    const val=yMaxV-(yMaxV-yMinV)*i/5;
+    ctx.fillStyle='#5a6480';ctx.font='10px Inter,sans-serif';ctx.textAlign='right';
+    ctx.fillText(fmt(val,1),padL-6,yy+3);
+  }
+  for(let i=0;i<=5;i++){
+    const xx=padL+gw*i/5;
+    ctx.beginPath();ctx.moveTo(xx,padT);ctx.lineTo(xx,padT+gh);ctx.stroke();
+    const val=xMinV+(xMaxV-xMinV)*i/5;
+    ctx.fillStyle='#5a6480';ctx.textAlign='center';
+    ctx.fillText(fmt(val,1),xx,H-padB+15);
   }
 
-  // Parabola
-  ctx2.strokeStyle = '#16a34a'; ctx2.lineWidth = 3;
-  ctx2.beginPath();
-  let first = true;
-  for (let px = xMin; px <= xMax; px += 0.05) {
-    const yy = a * px * px + b * px + c;
-    const sx = toX(px), sy = toY(yy);
-    if (sy < -50 || sy > h + 50) { first = true; continue; }
-    if (first) { ctx2.moveTo(sx, sy); first = false; }
-    else ctx2.lineTo(sx, sy);
+  /* Zero axes */
+  const [zx,zy]=toC(0,0);
+  if(zy>=padT&&zy<=padT+gh){
+    ctx.strokeStyle='#2a3555';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(padL,zy);ctx.lineTo(W-padR,zy);ctx.stroke();
   }
-  ctx2.stroke();
+  if(zx>=padL&&zx<=W-padR){
+    ctx.strokeStyle='#2a3555';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(zx,padT);ctx.lineTo(zx,padT+gh);ctx.stroke();
+  }
 
-  // Vertex
-  const svx = toX(vx), svy = toY(vy);
-  ctx2.fillStyle = '#ea580c';
-  ctx2.beginPath(); ctx2.arc(svx, svy, 7, 0, Math.PI * 2); ctx2.fill();
-  ctx2.fillStyle = '#fff';
-  ctx2.beginPath(); ctx2.arc(svx, svy, 3, 0, Math.PI * 2); ctx2.fill();
-  ctx2.fillStyle = '#1e293b'; ctx2.font = 'bold 11px sans-serif'; ctx2.textAlign = 'center';
-  ctx2.fillText(`V(${vx.toFixed(1)}, ${vy.toFixed(1)})`, svx, svy - 14);
+  /* Parabola */
+  ctx.beginPath();
+  for(let i=0;i<=300;i++){
+    const xx=xMinV+(xMaxV-xMinV)*i/300;
+    const yy=a*xx*xx+b*xx+c;
+    const [cx,cy]=toC(xx,yy);
+    if(i===0) ctx.moveTo(cx,cy); else ctx.lineTo(cx,cy);
+  }
+  ctx.strokeStyle='#34d399';ctx.lineWidth=3;ctx.lineCap='round';ctx.stroke();
 
-  // Roots
-  if (delta >= 0) {
-    const r1 = (-b - Math.sqrt(delta)) / (2 * a);
-    const r2 = (-b + Math.sqrt(delta)) / (2 * a);
-    [r1, r2].forEach(r => {
-      const sx = toX(r), sy = toY(0);
-      ctx2.fillStyle = '#2563eb';
-      ctx2.beginPath(); ctx2.arc(sx, sy, 6, 0, Math.PI * 2); ctx2.fill();
-      ctx2.fillStyle = '#fff';
-      ctx2.beginPath(); ctx2.arc(sx, sy, 2.5, 0, Math.PI * 2); ctx2.fill();
+  /* Glow */
+  ctx.beginPath();
+  for(let i=0;i<=300;i++){
+    const xx=xMinV+(xMaxV-xMinV)*i/300;
+    const yy=a*xx*xx+b*xx+c;
+    const [cx,cy]=toC(xx,yy);
+    if(i===0) ctx.moveTo(cx,cy); else ctx.lineTo(cx,cy);
+  }
+  ctx.strokeStyle='rgba(52,211,153,.12)';ctx.lineWidth=14;ctx.stroke();
+
+  /* Vertex */
+  const [vcx,vcy]=toC(xv,yv);
+  ctx.beginPath();ctx.arc(vcx,vcy,7,0,Math.PI*2);
+  ctx.fillStyle='#34d399';ctx.fill();
+  ctx.beginPath();ctx.arc(vcx,vcy,13,0,Math.PI*2);
+  ctx.fillStyle='rgba(52,211,153,.18)';ctx.fill();
+
+  /* Dashed to axes */
+  ctx.setLineDash([4,4]);ctx.strokeStyle='rgba(52,211,153,.3)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(vcx,vcy);ctx.lineTo(vcx,padT+gh);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(vcx,vcy);ctx.lineTo(padL,vcy);ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle='#e4e8f1';ctx.font='bold 11px JetBrains Mono,monospace';ctx.textAlign='left';
+  const vLabel=a<0?'Máx':'Mín';
+  ctx.fillText(`${vLabel} (${fmt(xv)}, ${fmt(yv)})`,vcx+14,vcy+(a<0?-12:18));
+
+  /* Roots */
+  if(delta>=0){
+    roots.forEach(r=>{
+      const [rx,ry]=toC(r,0);
+      ctx.beginPath();ctx.arc(rx,ry,5,0,Math.PI*2);
+      ctx.fillStyle='#fb923c';ctx.fill();
+      ctx.beginPath();ctx.arc(rx,ry,9,0,Math.PI*2);
+      ctx.fillStyle='rgba(251,146,60,.15)';ctx.fill();
     });
   }
 
-  // Labels
-  ctx2.fillStyle = '#64748b'; ctx2.font = 'bold 12px sans-serif'; ctx2.textAlign = 'center';
-  ctx2.fillText('x', w / 2, h - 4);
+  /* Labels */
+  ctx.fillStyle='#8892a8';ctx.font='bold 10px Inter,sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText('x',W-padR+8,zy>=padT&&zy<=padT+gh?zy+3:padT+gh+14);
+  ctx.fillText('y',zx>=padL&&zx<=W-padR?zx:padL,padT-6);
 }
-
-s2a.addEventListener('input', updateSim2);
-s2b.addEventListener('input', updateSim2);
-s2c.addEventListener('input', updateSim2);
 updateSim2();
 
-// ===== RESPONSIVE CANVAS RESIZE =====
-window.addEventListener('resize', () => { updateSim1(); updateSim2(); });
+/* Handle resize for crisp canvases */
+window.addEventListener('resize',()=>{updateSim1();updateSim2()});
 </script>
-
 </body>
 </html>
